@@ -4,6 +4,7 @@
     box-sizing: border-box;
 }
 
+/* alisher */
 .home-bg {
     background: linear-gradient(177.95deg, rgba(22, 118, 114, 0.52) 19.41%, #A2E9A9 105.7%);
 }
@@ -20,5 +21,23 @@
     display: flex;
     justify-content: space-between;
     margin-right: 10%;
-    
+}
+.addBtn {
+    padding: 10px 20px;
+    border-radius: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    &:hover {
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+}
+/* alisher */
+
+.back-user {
+    background: rgb(142, 212, 157);
+    background: linear-gradient(0deg, rgba(142, 212, 157, 1) 0%, rgba(25, 75, 73, 1) 71%);
 }

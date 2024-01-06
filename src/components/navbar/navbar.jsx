@@ -3,7 +3,7 @@ import brand from '../assets/brand.png';
 
 const NavbarDef = () => {
     return (
-        <div className='bg-navBg flex justify-between items-center'>
+        <div className='bg-navBg flex justify-between items-center sticky top-0'>
             <img src={brand} alt="brand" className='w-[300px]' />
             <p className='font-inika font-bold mr-10 text-xxl text-white'>Javokhir Koziboyev</p>
         </div>
