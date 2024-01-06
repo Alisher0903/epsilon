@@ -14,9 +14,13 @@ const Home = () => {
                     </p>
                 </div>
                 <div className='flex justify-between items-center mt-8'>
-                    <button className='addBtn bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
-                        Xodim qo'shish
-                    </button>
+                    <div>
+                        <button className='addBtn mr-4 bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
+                            Xodim qo'shish
+                        </button>
+                        <button className='addBtn mr-4 bg-btnBgIm font-inika active:scale-90 duration-200'>Import</button>
+                        <button className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>Export</button>
+                    </div>
                     <input
                         className='py-2.5 px-3 rounded-xl shadow-lg w-64 focus:outline
                         border-red-600 duration-500 placeholder:font-inika text-gray-700'
@@ -53,7 +57,7 @@ const Home = () => {
                                 <td className="px-5 py-3">м</td>
                                 <td className="px-5 py-3">1999</td>
                                 <td className="px-5 py-3">
-                                    <button>Qo’shimcha</button>
+                                    <button className='addBtn bg-infoBtnBg text-black font-inika active:scale-90 duration-200'>Qo’shimcha</button>
                                 </td>
                             </tr>
                         </tbody>
