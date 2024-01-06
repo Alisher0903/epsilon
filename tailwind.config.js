@@ -8,7 +8,10 @@ module.exports = {
       colors: {
         navBg: "#0B1484",
         headColor: "#2d7272",
-        infoColor: "#3a7d7d"
+        infoColor: "#3a7d7d",
+        btnBgIm: "#20E8E8",
+        btnBgEx: "#AFAFFCF2",
+        infoBtnBg: "#0047FFB0",
       },
       fontFamily: {
         inika: ["Inika", "serif"],
