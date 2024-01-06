@@ -12,6 +12,9 @@ module.exports = {
         btnBgIm: "#20E8E8",
         btnBgEx: "#AFAFFCF2",
         infoBtnBg: "#0047FFB0",
+        addBg: "#f5f1f1e6",
+        addInputBg: "#D9D9D9",
+        plussBtnBg: "#0047FFB0"
       },
       fontFamily: {
         inika: ["Inika", "serif"],

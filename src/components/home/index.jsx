@@ -1,9 +1,15 @@
 import React from 'react';
 import img from '../assets/table-img.png';
+import { Link } from 'react-router-dom';
+import { byId } from '../api';
 
 const Home = () => {
+
+    // goUserInfo
+    const goUserInfo = () => byId("userInfo").click();
     return (
         <div className='bg-gradient-to-t from-green-200 min-h-screen to-teal-500 w-full flex justify-center'>
+            <Link to="/user/add" id='userInfo'></Link>
             <div className='container'>
                 <div className='flex justify-center flex-col items-center mt-5 w-full font-inika'>
                     <h3 className='text-xxl font-bold text-headColor'>Epsilon Development Company</h3>
@@ -15,7 +21,7 @@ const Home = () => {
                 </div>
                 <div className='flex justify-between items-center mt-8'>
                     <div>
-                        <button className='addBtn mr-4 bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
+                        <button onClick={goUserInfo} className='addBtn mr-4 bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
                             Xodim qo'shish
                         </button>
                         <button className='addBtn mr-4 bg-btnBgIm font-inika active:scale-90 duration-200'>Import</button>
