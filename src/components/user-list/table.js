@@ -1,10 +1,6 @@
-import { Container } from 'reactstrap'
-
-function Table(){
-    return(
-        <Container>
-            <h1>Hello React</h1>
-        </Container>
+function Table() {
+    return (
+        <h1>Hello React</h1>
     )
 }
 export default Table
