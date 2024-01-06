@@ -24,7 +24,7 @@ function UserList() {
           </div>
         </div>
       </div>
-      <div className="w-100 flex justify-center mt-5">
+      <div className="w-100 flex justify-center mt-10">
         <div className="flex">
           <ul class="list-none">
             <div className="listlar">
