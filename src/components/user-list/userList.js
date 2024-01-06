@@ -3,7 +3,6 @@ import TableUSer from "./table";
 
 function UserList() {
   return (
-    
     <div className=" bg-slate-300 pt-4">
       <div className=" w-100 flex justify-center">
         <div className="items-center">
