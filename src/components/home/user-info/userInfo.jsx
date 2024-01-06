@@ -1,10 +1,11 @@
 import React from 'react';
 import userImg from '../../assets/userImg.png';
 import PlusUserInfo from './plusUserInfo';
+import { Icon } from '@iconify/react';
 
 const UserInfo = () => {
     return (
-        <div className='w-full min-h-screen bg-addBg'>
+        <div className='w-full min-h-screen bg-addBg pb-10'>
             <div className='flex justify-center items-center rounded-full overflow-hidden pt-10'>
                 <img className='w-64 h-64' src={userImg} alt="userImg" />
             </div>
@@ -198,6 +199,12 @@ const UserInfo = () => {
                 </div>
             </div>
             <PlusUserInfo />
+            <div className='flex justify-center items-center active:scale-90 duration-300'>
+                <button className='bg-plussBtnBg text-white active:scale-90 duration-300 rounded-lg p-2'>
+                    <Icon icon="typcn:plus" className='w-8 h-8' />
+                </button>
+                <span className='cursor-pointer font-inika font-bold text-lg ml-2'>Yana Qo’shish</span>
+            </div>
         </div>
     )
 }
