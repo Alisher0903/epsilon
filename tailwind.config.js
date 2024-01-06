@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        navColor: "#0B1484DE"
+        navBg: "#0B1484",
+        headColor: "#9CE0E0"
       },
       fontFamily: {
         inika: ["Inika", "serif"],
