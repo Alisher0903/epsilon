@@ -5,7 +5,7 @@ function TableUSer() {
     return (
         
         <div class="flex flex-col">
-            <h1 class = "text-center">Hello React</h1>
+            <h1 class = "text-center">Близкие родственники</h1>
           <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
             <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
               <div class="overflow-hidden">
