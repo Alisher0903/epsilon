@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import Home from "./components/home/index";
 import "./components/global.css";
 import NavbarDef from "./components/navbar/navbar";
+import Home from "./components/home/index";
 import UserList from "./components/user-list/userList";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
       <NavbarDef />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/user info" element={<UserList />} />
+        <Route path="/user/info" element={<UserInfo />} />
       </Routes>
     </>
   );
