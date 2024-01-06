@@ -8,11 +8,11 @@ import UserList from "./components/user-list/userList";
 function App() {
   return (
     <>
-    <NavbarDef />
+      <NavbarDef />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/table" element = {<Table/>}/>
-        <Route path="/user info" element = {<UserList/>}/>
+        <Route path="/table" element={<Table />} />
+        <Route path="/user info" element={<UserList />} />
       </Routes>
     </>
   );
