@@ -8,7 +8,6 @@ function UserList() {
         <div className="items-center">
           <div className=" flex justify-center ">
             <img
-            
               className="rounded-full object-cover w-40 h-40"
               src="https://media.tacdn.com/media/attractions-splice-spp-674x446/0c/10/e6/b0.jpg"
               alt="."
