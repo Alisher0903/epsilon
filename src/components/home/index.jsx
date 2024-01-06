@@ -17,7 +17,10 @@ const Home = () => {
                     <button className='addBtn bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
                         Xodim qo'shish
                     </button>
-                    <input type="text" placeholder='🔍 Qidirish...' />
+                    <input
+                        className='py-2.5 px-3 rounded-xl shadow-lg w-64 focus:outline
+                        border-red-600 duration-500 placeholder:font-inika text-gray-700'
+                        placeholder='🔍 Qidirish...' />
                 </div>
                 <div className='mt-10 mb-5 rounded-xl overflow-hidden shadow-lg'>
                     <table className="w-full text-center bg-white">
