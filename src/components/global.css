@@ -17,6 +17,11 @@
     max-width: 1300px;
 }
 
+.listlar {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10%;
+}
 .addBtn {
     padding: 10px 20px;
     border-radius: 15px;

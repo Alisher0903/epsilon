@@ -14,7 +14,7 @@ function UserList() {
           </div>
           <div className="text-center">
             <h1 className="text-3xl font-bold tracking-wider mt-4">
-              Коржовов Бунёд Жура угли{" "}
+              Коржовов Бунёд Жура угли
             </h1>
             <p className="text-xl  tracking-wider mt-2">+998-99-961-51-20</p>
             <h4 className="text-xl font-bold tracking-wider mt-2">
@@ -23,37 +23,111 @@ function UserList() {
           </div>
         </div>
       </div>
-      <div className="w-100 flex">
-        <div className="flex justify-center">
-          <ul class="list-none w-60">
-            <li>Национальност: <span>Узбек</span></li>
-            <li>Пол: <span>м </span></li>
-            <li>рождения:  <span>199/4/12 </span></li>
-            <li>Место рождения:  <span>Кашкадарьинская  </span></li>
-            <li>Адрес: г.:  <span>Кarshi  </span></li>
-            <li>Область:  <span>Кашкадарьинская </span></li>
-            <li>Район:  <span>Гузарский  </span></li>
-            <li>Поселок:  <span>jhsdshd </span></li>
-            <li>Улица:  <span>Amir temur  </span></li>
-            <li>МСГ:  <span>6 мкр </span></li>
-            <li>ССГ:  <span>Гузарский  </span></li>
-            <li>Дом:  <span>9 А </span></li>
-            <li>Квар- тира :  <span>9 А </span></li>
-            <li>Образование <span>Высшее </span></li>
-            <li>Что и когда окончил: <span>Туринский политехнический университет г. Ташкент 2018-2022гг </span></li>
-            
+      <div className="w-100 flex justify-center mt-5">
+        <div className="flex">
+          <ul class="list-none">
+            <div className="listlar">
+              <li className="mb-2">Национальност:</li>
+              <span className="font-bold ms-10">Узбек</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Пол:</li>
+              <span className="font-bold ms-10">м </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">рождения:</li>
+              <span className="font-bold ms-10">199/4/12 </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Место рождения: </li>
+              <span className="font-bold ms-10">Кашкадарьинская </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Адрес: г.:</li>
+              <span className="font-bold ms-10">Кarshi </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Область:</li>
+              <span className="font-bold ms-10">Кашкадарьинская </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Район:</li>
+              <span className="font-bold ms-10">Гузарский </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Поселок:</li>
+              <span className="font-bold ms-10">jhsdshd </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Улица:</li>
+              <span className="font-bold ms-10">Amir temur </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">МСГ:</li>
+              <span className="font-bold ms-10">6 мкр </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">ССГ:</li>
+              <span className="font-bold ms-10">Гузарский </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Дом:</li>
+              <span className="font-bold ms-10">9 А </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Квар- тира :</li>
+              <span className="font-bold ms-10">9 А </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Образование</li>
+              <span className="font-bold ms-10">Высшее </span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Что и когда окончил: </li>
+              <span className="font-bold ">
+                Туринский политехнический университет г. Ташкент 2018-2022гг
+              </span>
+            </div>
           </ul>
         </div>
         <div>
-        <ul class="list-none ">
-            <li>Специальность: <span>Механик</span></li>
-            <li>С какого числа работает на объекте (цифрами): <span>2023/10/20</span></li>
-            <li>С какой даты начал трудовую деятельность: <span>женат</span></li>
-            <li>Семейное положение (женат, неженат, замужем, незамужем, разведен, разведена): <span>женат</span></li>
-            <li>Телеграмм да/нет: <span>да</span></li>
-            <li>Фейсбук да/нет: <span>да</span></li>
-            <li>Инстаграмм да/нет: <span>да</span></li>
-        </ul>
+          <ul class="list-none ">
+            <div className="listlar">
+              <li className="mb-2">Специальность:</li>
+              <span className="font-bold ms-10">Механик</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">
+                С какого числа работает на объекте (цифрами):
+              </li>
+              <span className="font-bold ms-10">2023/10/20</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">
+                С какой даты начал трудовую деятельность:
+              </li>
+              <span className="font-bold ms-10">женат</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">
+                Семейное положение (женат, неженат, замужем, незамужем,
+                разведен, разведена):
+              </li>
+              <span className="font-bold ms-10">женат</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Телеграмм да/нет:</li>
+              <span className="font-bold ms-10">да</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Фейсбук да/нет:</li>
+              <span className="font-bold ms-10">да</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Инстаграмм да/нет:</li>
+              <span className="font-bold ms-10">да</span>
+            </div>
+          </ul>
         </div>
       </div>
     </div>
