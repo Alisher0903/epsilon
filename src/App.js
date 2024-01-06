@@ -7,7 +7,7 @@ import UserList from "./components/user-list/userList";
 function App() {
   return (
     <>
-      <NavbarDef />
+      <NavbarDef/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/user/info" element={<UserList />} />
