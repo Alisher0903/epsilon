@@ -10,7 +10,6 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
-      <UserList/>
     </BrowserRouter>
   </React.StrictMode>
 );
