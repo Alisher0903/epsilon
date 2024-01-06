@@ -1,4 +1,5 @@
 import React from "react";
+import TableUSer from "./table";
 
 function UserList() {
   return (
@@ -130,6 +131,8 @@ function UserList() {
           </ul>
         </div>
       </div>
+
+      <TableUSer/>
     </div>
   );
 }
