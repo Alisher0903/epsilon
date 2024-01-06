@@ -6,11 +6,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        profileColor: "#271E4A"
+        navBg: "#0B1484",
+        headColor: "#2d7272",
+        infoColor: "#3a7d7d"
       },
       fontFamily: {
         inika: ["Inika", "serif"],
       },
+      fontSize: {
+        xxl: "2.3rem",
+      }
     },
   },
   plugins: [],
