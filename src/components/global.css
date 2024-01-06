@@ -15,3 +15,8 @@
 .container {
     max-width: 1300px;
 }
+
+.back-user {
+    background: rgb(142, 212, 157);
+    background: linear-gradient(0deg, rgba(142, 212, 157, 1) 0%, rgba(25, 75, 73, 1) 71%);
+}
