@@ -1,5 +1,6 @@
 import React from 'react';
 import userImg from '../../assets/userImg.png';
+import PlusUserInfo from './plusUserInfo';
 
 const UserInfo = () => {
     return (
@@ -196,6 +197,7 @@ const UserInfo = () => {
                         placeholder='Номер паспорта...' />
                 </div>
             </div>
+            <PlusUserInfo />
         </div>
     )
 }

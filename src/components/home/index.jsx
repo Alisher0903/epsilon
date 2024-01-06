@@ -9,7 +9,7 @@ const Home = () => {
     const goUserInfo = () => byId("userInfo").click();
     return (
         <div className='bg-gradient-to-t from-green-200 min-h-screen to-teal-500 w-full flex justify-center'>
-            <Link to="/user/info" id='userInfo'></Link>
+            <Link to="/user/add" id='userInfo'></Link>
             <div className='container'>
                 <div className='flex justify-center flex-col items-center mt-5 w-full font-inika'>
                     <h3 className='text-xxl font-bold text-headColor'>Epsilon Development Company</h3>
