@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+import img from '../assets/table-img.png';
 
 const Home = () => {
     return (
-        <div className='bg-gradient-to-t from-green-200 to-teal-500 w-full flex justify-center'>
+        <div className='bg-gradient-to-t from-green-200 min-h-screen to-teal-500 w-full flex justify-center'>
             <div className='container'>
                 <div className='flex justify-center flex-col items-center mt-5 w-full font-inika'>
                     <h3 className='text-xxl font-bold text-headColor'>Epsilon Development Company</h3>
@@ -18,31 +19,39 @@ const Home = () => {
                     </button>
                     <input type="text" placeholder='🔍 Qidirish...' />
                 </div>
-                <div className='mt-10 mb-5 rounded-xl overflow-hidden'>
+                <div className='mt-10 mb-5 rounded-xl overflow-hidden shadow-lg'>
                     <table className="w-full text-center bg-white">
                         <thead>
                             <tr className='bg-gray-800 text-white'>
                                 <th className='px-5 py-3'>#</th>
-                                <th className='px-5 py-3'>Full name</th>
-                                <th className='px-5 py-3'>Group name</th>
-                                <th className='px-5 py-3'>Exchanges</th>
-                                <th className='px-5 py-3'>Task</th>
+                                <th className='px-5 py-3'>Фото</th>
+                                <th className='px-5 py-3'>Занимаемая должность</th>
+                                <th className='px-5 py-3'>Фамилия</th>
+                                <th className='px-5 py-3'>Имя</th>
+                                <th className='px-5 py-3'>Отечество</th>
+                                <th className='px-5 py-3'>Пол</th>
+                                <th className='px-5 py-3'>Год рождения</th>
+                                <th className='px-5 py-3'>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="border-t text-gray-500 even:bg-slate-100 hover:bg-slate-200 duration-150">
+                            <tr className="border-t text-gray-500 even:bg-slate-100 hover:bg-slate-200 duration-150 text-center">
                                 <td className="px-5 py-3">1</td>
-                                <td className="px-5 py-3">className</td>
-                                <td className="px-5 py-3">as</td>
-                                <td className="px-5 py-3">asdf</td>
-                                <td className="px-5 py-3">dfdg</td>
-                            </tr>
-                            <tr className="border-t text-gray-500 even:bg-slate-100 hover:bg-slate-200 duration-150">
-                                <td className="px-5 py-3">1</td>
-                                <td className="px-5 py-3">className</td>
-                                <td className="px-5 py-3">as</td>
-                                <td className="px-5 py-3">asdf</td>
-                                <td className="px-5 py-3">dfdg</td>
+                                <td className="px-5 py-3">
+                                    <img
+                                        className='w-26 h-26 rounded-full'
+                                        src={img}
+                                        alt="img" />
+                                </td>
+                                <td className="px-5 py-3">Оператор систем удаленного контроля</td>
+                                <td className="px-5 py-3">Коржовов</td>
+                                <td className="px-5 py-3">Бунёд</td>
+                                <td className="px-5 py-3">Жура угли</td>
+                                <td className="px-5 py-3">м</td>
+                                <td className="px-5 py-3">1999</td>
+                                <td className="px-5 py-3">
+                                    <button>Qo’shimcha</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
