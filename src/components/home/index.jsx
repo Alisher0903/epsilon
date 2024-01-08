@@ -43,6 +43,24 @@ const Home = () => {
         else getUser();
     }
 
+    const importFile = () => {
+        axios.get(url + "user/exportExcel", { responseType: 'blob' })
+            .then(res => {
+                const blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'filename.xlsx';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            })
+            .catch(error => {
+                console.error('Error downloading file:', error);
+                toast.error("Xatolik yuz berdi");
+            });
+    }
+
     return (
         <div className='bg-gradient-to-t from-green-200 min-h-screen to-teal-500 w-full flex justify-center'>
             <Link to="/user/add" id='userAdd'></Link>
@@ -61,8 +79,14 @@ const Home = () => {
                         <button onClick={goUserAdd} className='addBtn mr-4 bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
                             Xodim qo'shish
                         </button>
-                        <button className='addBtn mr-4 bg-btnBgIm font-inika active:scale-90 duration-200'>Import</button>
-                        <button className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>Export</button>
+                        <button onClick={importFile} className='addBtn mr-4 bg-btnBgIm font-inika active:scale-90 duration-200'>
+                            Import
+                            <Icon className='inline-block ml-2' icon="material-symbols:downloading" width="27" />
+                        </button>
+                        <button className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
+                            Export
+                            <Icon className='inline-block ml-2' icon="material-symbols:downloading" rotate={2} width="27" />
+                        </button>
                     </div>
                     <div>
                         <label

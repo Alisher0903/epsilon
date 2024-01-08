@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import userImg from '../../assets/userImg.png';
 import PlusUserInfo from './plusUserInfo';
 import { Icon } from '@iconify/react';
 
 const UserInfo = () => {
+    const [fileName, setFileName] = useState("Faylni tanlang");
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            setFileName(selectedFile.name);
+        } else {
+            setFileName("Faylni tanlang");
+        }
+    };
+
     return (
         <div className='w-full min-h-screen bg-addBg pb-10'>
-            <div className='flex justify-center items-center rounded-full overflow-hidden pt-10'>
-                <img className='w-64 h-64' src={userImg} alt="userImg" />
+            <div className="flex items-center justify-center pt-16">
+                <label htmlFor="fileInput" className="cursor-pointer active:scale-90 duration-200 flex flex-row justify-center items-center">
+                    <span><Icon icon="flat-color-icons:plus" width="50" height="50" /></span> 
+                    <span className='font-inika font-bold text-2xl text-black hover:text-blue-800 duration-300 ml-2 tracking-wider'>{fileName}</span>
+                </label>
+                <input id="fileInput" type="file" className="hidden" onChange={handleFileChange} />
             </div>
-            <div className='flex flex-wrap justify-center mt-12 pb-10'>
+
+            <div className='flex flex-wrap justify-center mt-4 pb-10'>
                 {/* bir */}
                 <div className='flex flex-col font-inika mx-2'>
                     <label htmlFor="familiya" className='mb-1 ml-1 mt-10 text-sm w-64'>Фамилия</label>
