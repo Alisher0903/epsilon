@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TableUSer from "./table";
+import axios from "axios";
+import { url } from "../api";
 
 function UserList() {
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  // getUser
+  const getUser = () => {
+    let userInfoID = sessionStorage.getItem("userInID");
+
+    axios.get(url + "user/" + userInfoID)
+      .then(res => setUser(res.data.body))
+      .catch(() => console.log("kelmadi!"))
+  }
+
+  // console.log(user);
+
   return (
     <div className=" bg-slate-300 pt-4">
       <div className=" w-100 flex justify-center">
@@ -132,7 +151,7 @@ function UserList() {
         </div>
       </div>
 
-      <TableUSer/>
+      <TableUSer />
     </div>
   );
 }
