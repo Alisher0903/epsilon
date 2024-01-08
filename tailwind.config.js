@@ -14,7 +14,8 @@ module.exports = {
         infoBtnBg: "#0047FFB0",
         addBg: "#f5f1f1e6",
         addInputBg: "#D9D9D9",
-        plussBtnBg: "#0047FFB0"
+        plussBtnBg: "#0047FFB0",
+        loginBg: "linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(34, 129, 195, 1) 85%)"
       },
       fontFamily: {
         inika: ["Inika", "serif"],
