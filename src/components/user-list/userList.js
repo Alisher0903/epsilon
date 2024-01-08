@@ -14,13 +14,10 @@ function UserList() {
   // getUser
   const getUser = () => {
     let userInfoID = sessionStorage.getItem("userInID");
-
     axios.get(url + "user/" + userInfoID)
       .then(res => setUser(res.data.body))
       .catch(() => console.log("kelmadi!"))
   }
-
-  console.log(user);
 
   return (
     <div className=" bg-slate-300 pt-4">
@@ -143,7 +140,7 @@ function UserList() {
             </div>
             <div className="listlar">
               <li className="mb-2">Серия и номер паспорта:</li>
-              <span className="font-bold ms-10">{user.passportSyria} {user.phoneNumber}</span>
+              <span className="font-bold ms-10">{user.passportSyria} {user.passportNumber}</span>
             </div>
           </ul>
         </div>

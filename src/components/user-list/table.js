@@ -1,10 +1,25 @@
 import { Icon } from "@iconify/react";
-// import "./table.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { url } from "../api";
 
 function TableUSer() {
+  const [userTable, setUserTable] = useState([]);
+
+  useEffect(() => {
+    getUserTable();
+  }, []);
+
+  // getUserTable
+  const getUserTable = () => {
+    let userInfoID = sessionStorage.getItem("userInID");
+    axios.get(url + "user/" + userInfoID)
+      .then(res => setUserTable(res.data.body.relationshipDtos))
+      .catch(() => console.log("kelmadi!"))
+  }
   return (
     <div className="flex flex-col pb-10">
-      <h1 className="text-center mt-14 mb-8 font-inika font-bold tracking-wide text-4xl">Близкие родственники</h1>
+      <h1 className="text-center mt-20 mb-8 font-inika font-bold tracking-wide text-4xl">Близкие родственники</h1>
       <div className="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden shadow-lg rounded-2xl">
@@ -40,7 +55,7 @@ function TableUSer() {
                     className="text-sm font-medium px-6 py-4 text-left">Должность</th>
                   <th
                     scope="col"
-                    className="text-sm font-medium px-6 py-4 text-left">ИАдрес: г.</th>
+                    className="text-sm font-medium px-6 py-4 text-left">Адрес: г.</th>
                   <th
                     scope="col"
                     className="text-sm font-medium px-6 py-4 text-left">Область</th>
@@ -58,6 +73,9 @@ function TableUSer() {
                     className="text-sm font-medium px-6 py-4 text-left">ССГ</th>
                   <th
                     scope="col"
+                    className="text-sm font-medium px-6 py-4 text-left">МСГ</th>
+                  <th
+                    scope="col"
                     className="text-sm font-medium px-6 py-4 text-left">Дом</th>
                   <th
                     scope="col"
@@ -65,47 +83,51 @@ function TableUSer() {
                 </tr>
               </thead>
               <tbody>
-                {/* <tr className="bg-white-100 border-b hover:bg-slate-200 duration-150">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Mark</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Otto</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">@mdo</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Mark</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Otto</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">@mdo</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Mark</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Otto</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">@mdo</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Mark</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Otto</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">@mdo</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Mark</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">Otto</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">@mdo</td>
-                  <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">@mdo</td>
-                </tr> */}
-
-                <tr className="bg-white-100 border-b hover:bg-slate-200 duration-150">
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2 text-center text-sm font-medium text-gray-900">
-                    <Icon icon="eos-icons:three-dots-loading" width="100" height="70" />
-                  </td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                  <td className="px-5 py-2"></td>
-                </tr>
+                {userTable.length !== 0 ?
+                  userTable.map((item, i) =>
+                    <tr className=" bg-slate-100 text-sm even:bg-slate-200 border-b hover:bg-slate-300 duration-150">
+                      <th className="text-gray-900 font-medium px-6 py-4 whitespace-nowrap">{i + 1}</th>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.closeRelatives}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.lastName}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.firstName}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.middleName}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.placeOfBirth}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.day} - {item.month} - {item.year}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.placeOfWork}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.jobTitle}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.addressCity}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.region}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.district}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.village}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.street}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.ccg}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.mcg}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.home}</td>
+                      <td className="text-gray-900 font-light px-6 py-4 whitespace-nowrap">{item.flat}</td>
+                    </tr>
+                  ) : (
+                    <tr className="bg-white-100 border-b hover:bg-slate-200 duration-150">
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2 text-center text-sm font-medium text-gray-900">
+                        <Icon icon="eos-icons:three-dots-loading" width="100" height="70" />
+                      </td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                      <td className="px-5 py-2"></td>
+                    </tr>
+                  )}
               </tbody>
             </table>
           </div>
