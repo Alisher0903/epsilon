@@ -20,7 +20,9 @@
 .listlar {
     display: flex;
     justify-content: space-between;
-    margin-right: 10%;
+    align-items: center;
+    border-bottom: .3px dotted gray;
+    margin-top: 1rem;
 }
 .addBtn {
     padding: 10px 20px;

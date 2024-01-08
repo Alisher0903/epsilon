@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import TableUSer from "./table";
 import axios from "axios";
-import { url } from "../api";
+import { getFile, url } from "../api";
+import img from "../assets/userImg.png";
 
 function UserList() {
   const [user, setUser] = useState([]);
@@ -19,7 +20,7 @@ function UserList() {
       .catch(() => console.log("kelmadi!"))
   }
 
-  // console.log(user);
+  console.log(user);
 
   return (
     <div className=" bg-slate-300 pt-4">
@@ -28,124 +29,121 @@ function UserList() {
           <div className=" flex justify-center ">
             <img
               className="rounded-full object-cover w-40 h-40"
-              src="https://media.tacdn.com/media/attractions-splice-spp-674x446/0c/10/e6/b0.jpg"
-              alt="."
+              src={user.attachmentId === null
+                ? img
+                : getFile + user.attachmentId
+              }
+              alt="user"
             />
           </div>
           <div className="text-center">
             <h1 className="text-3xl font-bold tracking-wider mt-4">
-              Коржовов Бунёд Жура угли
+              {user.lastName} {user.firstName} {user.middleName}
             </h1>
-            <p className="text-xl  tracking-wider mt-2">+998-99-961-51-20</p>
-            <h4 className="text-xl font-bold tracking-wider mt-2">
-              Оператор систем удаленного контроля
+            <p className="text-xl  tracking-wider mt-2">
+              {user.phoneNumber === null ? "Нет номера телефона" : user.phoneNumber}
+            </p>
+            <h4 className="text-2xl font-semibold tracking-wider mt-2">
+              {user.positionHeld}
             </h4>
           </div>
         </div>
       </div>
-      <div className="w-100 flex justify-center mt-10">
-        <div className="flex">
-          <ul class="list-none">
+      <div className="w-100 flex justify-center items-start mt-10 px-24">
+        <div className="flex w-1/2">
+          <ul class="list-none w-full pr-10">
             <div className="listlar">
               <li className="mb-2">Национальност:</li>
-              <span className="font-bold ms-10">Узбек</span>
+              <span className="font-bold ms-10">{user.nationality}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">Пол:</li>
-              <span className="font-bold ms-10">м </span>
+              <span className="font-bold ms-10">{user.gender}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">рождения:</li>
-              <span className="font-bold ms-10">199/4/12 </span>
+              <span className="font-bold ms-10">{user.day}/{user.month}/{user.year}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">Место рождения: </li>
-              <span className="font-bold ms-10">Кашкадарьинская </span>
+              <span className="font-bold ms-10">{user.placeOfBirth}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">Адрес: г.:</li>
-              <span className="font-bold ms-10">Кarshi </span>
+              <span className="font-bold ms-10">{user.addressCity}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">Область:</li>
-              <span className="font-bold ms-10">Кашкадарьинская </span>
+              <span className="font-bold ms-10">{user.region}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">Район:</li>
-              <span className="font-bold ms-10">Гузарский </span>
+              <span className="font-bold ms-10">{user.district}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">Поселок:</li>
-              <span className="font-bold ms-10">jhsdshd </span>
+              <span className="font-bold ms-10">{user.village}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">Улица:</li>
-              <span className="font-bold ms-10">Amir temur </span>
+              <span className="font-bold ms-10">{user.street}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">МСГ:</li>
-              <span className="font-bold ms-10">6 мкр </span>
+              <span className="font-bold ms-10">{user.mcg}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">ССГ:</li>
-              <span className="font-bold ms-10">Гузарский </span>
-            </div>
-            <div className="listlar">
-              <li className="mb-2">Дом:</li>
-              <span className="font-bold ms-10">9 А </span>
-            </div>
-            <div className="listlar">
-              <li className="mb-2">Квар- тира :</li>
-              <span className="font-bold ms-10">9 А </span>
-            </div>
-            <div className="listlar">
-              <li className="mb-2">Образование</li>
-              <span className="font-bold ms-10">Высшее </span>
-            </div>
-            <div className="listlar">
-              <li className="mb-2">Что и когда окончил: </li>
-              <span className="font-bold ">
-                Туринский политехнический университет г. Ташкент 2018-2022гг
-              </span>
+              <span className="font-bold ms-10">{user.ccg}</span>
             </div>
           </ul>
         </div>
-        <div>
-          <ul class="list-none ">
+        <div className="w-1/2">
+          <ul class="list-none pl-10">
+            <div className="listlar">
+              <li className="mb-2">Дом:</li>
+              <span className="font-bold ms-10">{user.home}</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Квар - тира:</li>
+              <span className="font-bold ms-10">{user.flat}</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Образование:</li>
+              <span className="font-bold ms-10">{user.education}</span>
+            </div>
+            <div className="listlar">
+              <li className="mb-2">Что и когда окончил:</li>
+              <span className="font-bold ">{user.school}</span>
+            </div>
             <div className="listlar">
               <li className="mb-2">Специальность:</li>
-              <span className="font-bold ms-10">Механик</span>
+              <span className="font-bold ms-10">{user.speciality}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">
                 С какого числа работает на объекте (цифрами):
               </li>
-              <span className="font-bold ms-10">2023/10/20</span>
+              <span className="font-bold ms-10">
+                {user.startWorkingDay}/{user.startWorkingMonth}/{user.startWorkingYear}
+                </span>
             </div>
             <div className="listlar">
               <li className="mb-2">
                 С какой даты начал трудовую деятельность:
               </li>
-              <span className="font-bold ms-10">женат</span>
+              <span className="font-bold ms-10">{user.dateStartWork}</span>
             </div>
             <div className="listlar">
               <li className="mb-2">
                 Семейное положение (женат, неженат, замужем, незамужем,
                 разведен, разведена):
               </li>
-              <span className="font-bold ms-10">женат</span>
+              <span className="font-bold ms-10">{user.maritalStatus}</span>
             </div>
             <div className="listlar">
-              <li className="mb-2">Телеграмм да/нет:</li>
-              <span className="font-bold ms-10">да</span>
-            </div>
-            <div className="listlar">
-              <li className="mb-2">Фейсбук да/нет:</li>
-              <span className="font-bold ms-10">да</span>
-            </div>
-            <div className="listlar">
-              <li className="mb-2">Инстаграмм да/нет:</li>
-              <span className="font-bold ms-10">да</span>
+              <li className="mb-2">Серия и номер паспорта:</li>
+              <span className="font-bold ms-10">{user.passportSyria} {user.phoneNumber}</span>
             </div>
           </ul>
         </div>
