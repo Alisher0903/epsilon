@@ -10,6 +10,8 @@ import NavbarDef from '../navbar/navbar';
 const Home = () => {
 
     const [user, setUser] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [loadingEx, setLoadingEx] = useState(false);
 
     useEffect(() => {
         getUser();
@@ -45,6 +47,7 @@ const Home = () => {
     }
 
     const importFile = () => {
+        setLoading(true);
         axios.get(url + "user/exportExcel", { responseType: 'blob' })
             .then(res => {
                 const blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -59,8 +62,13 @@ const Home = () => {
             .catch(error => {
                 console.error('Error downloading file:', error);
                 toast.error("Xatolik yuz berdi");
+            })
+            .finally(() => {
+                setLoading(false);
             });
     }
+
+    const load = () => setLoadingEx(!loadingEx);
 
     return (
         <>
@@ -82,13 +90,29 @@ const Home = () => {
                             <button onClick={goUserAdd} className='addBtn mr-4 bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
                                 Xodim qo'shish
                             </button>
-                            <button onClick={importFile} className='addBtn mr-4 bg-btnBgIm font-inika active:scale-90 duration-200'>
-                                Import
-                                <Icon className='inline-block ml-2' icon="material-symbols:downloading" width="27" />
+                            <button onClick={importFile} disabled={loading} className='addBtn mr-4 bg-btnBgIm font-inika active:scale-90 duration-200'>
+                                {loading ?
+                                    <>
+                                        Import
+                                        <Icon className='inline-block ml-2' icon="line-md:downloading-loop" width="27" />
+                                    </> :
+                                    <>
+                                        Import
+                                        <Icon className='inline-block ml-2' icon="material-symbols:downloading" width="27" />
+                                    </>
+                                }
                             </button>
-                            <button className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
-                                Export
-                                <Icon className='inline-block ml-2' icon="material-symbols:downloading" rotate={2} width="27" />
+                            <button onClick={load} disabled={loadingEx} className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
+                                {loadingEx ?
+                                    <>
+                                        Export
+                                        < Icon className='inline-block ml-2' icon="material-symbols:downloading" rotate={2} width="27" />
+                                    </> :
+                                    <>
+                                        Export
+                                        <Icon className='inline-block ml-2' icon="line-md:downloading-loop" width="27" rotate={2} />
+                                    </>
+                                }
                             </button>
                         </div>
                         <div>
@@ -99,14 +123,14 @@ const Home = () => {
                                 <input
                                     id="searchIn"
                                     className='py-2.5 ps-4 shadow-lg w-64 bg-slate-200 focus:outline-none focus:bg-slate-100
-                                duration-500 placeholder:font-inika text-gray-700'
+                                    duration-500 placeholder:font-inika text-gray-700'
                                     placeholder='Search...' />
                                 <button
                                     onClick={searchUser}
                                     className="w-[2.875rem] h-[2.875rem] flex-shrink-0 inline-flex justify-center items-center 
-                                gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white 
-                                hover:bg-blue-700 duration-200 disabled:opacity-50 disabled:pointer-events-none 
-                                dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                    gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white 
+                                    hover:bg-blue-700 duration-200 disabled:opacity-50 disabled:pointer-events-none 
+                                    dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                                     <svg className="flex-shrink-0 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="11" cy="11" r="8" />
                                         <path d="m21 21-4.3-4.3" />
