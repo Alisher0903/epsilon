@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { byId, getFile, url } from '../api';
 import axios from 'axios';
 import { Icon } from '@iconify/react';
+import { toast } from 'react-toastify';
 
 const Home = () => {
 
@@ -23,6 +24,24 @@ const Home = () => {
     // goUserAdd
     const goUserAdd = () => byId("userAdd").click();
     const goUserInfo = () => byId("userInfo").click();
+
+    // search
+    const searchUser = () => {
+        let searchVal = byId("searchIn").value;
+        if (!!searchVal) {
+            axios.post(url + "user/filter?data=" + searchVal)
+                .then(res => {
+                    setUser(res.data.body)
+                })
+                .catch((err) => {
+                    if (err.response.data.success === false) {
+                        toast.error("Siz qidirgan ma'lumot topilmadi❌")
+                        setUser([]);
+                    }
+                })
+        }
+        else getUser();
+    }
 
     return (
         <div className='bg-gradient-to-t from-green-200 min-h-screen to-teal-500 w-full flex justify-center'>
@@ -45,10 +64,29 @@ const Home = () => {
                         <button className='addBtn mr-4 bg-btnBgIm font-inika active:scale-90 duration-200'>Import</button>
                         <button className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>Export</button>
                     </div>
-                    <input
-                        className='py-2.5 px-3 rounded-xl shadow-lg w-64 focus:outline focus:bg-slate-100
-                        duration-500 placeholder:font-inika text-gray-700'
-                        placeholder='🔍 Qidirish...' />
+                    <div>
+                        <label
+                            for="searchIn"
+                            className="sr-only">Label</label>
+                        <div className="flex rounded-xl shadow-lg overflow-hidden">
+                            <input
+                                id="searchIn"
+                                className='py-2.5 ps-4 shadow-lg w-64 bg-slate-200 focus:outline-none focus:bg-slate-100
+                                duration-500 placeholder:font-inika text-gray-700'
+                                placeholder='Search...' />
+                            <button
+                                onClick={searchUser}
+                                className="w-[2.875rem] h-[2.875rem] flex-shrink-0 inline-flex justify-center items-center 
+                                gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white 
+                                hover:bg-blue-700 duration-200 disabled:opacity-50 disabled:pointer-events-none 
+                                dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                <svg className="flex-shrink-0 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <path d="m21 21-4.3-4.3" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <div className='mt-10 mb-5 rounded-xl overflow-hidden shadow-lg'>
                     <table className="w-full text-center bg-white">
