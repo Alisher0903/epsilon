@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import img from '../assets/table-img.png';
 import { Link } from 'react-router-dom';
-import { byId, getFile, url } from '../api';
+import { byId, config, getFile, setConfig, url } from '../api';
 import axios from 'axios';
 import { Icon } from '@iconify/react';
 import { toast } from 'react-toastify';
@@ -23,12 +23,13 @@ const Home = () => {
     };
 
     useEffect(() => {
+        setConfig();
         getUser();
     }, []);
 
     // getUser
     const getUser = () => {
-        axios.get(url + "user")
+        axios.get(url + "user", config)
             .then(res => setUser(res.data.body))
             .catch(() => console.log("kelmadi!"))
     }
@@ -41,7 +42,7 @@ const Home = () => {
     const searchUser = () => {
         let searchVal = byId("searchIn").value;
         if (!!searchVal) {
-            axios.post(url + "user/filter?data=" + searchVal)
+            axios.post(url + "user/filter?data=" + searchVal, config)
                 .then(res => {
                     setUser(res.data.body)
                 })
@@ -64,7 +65,7 @@ const Home = () => {
 
     const importFile = () => {
         setLoading(true);
-        axios.get(url + "user/exportExcel", { responseType: 'blob' })
+        axios.get(url + "user/exportExcel", { responseType: 'blob' }, config)
             .then(res => {
                 const blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
                 const url = window.URL.createObjectURL(blob);
@@ -87,7 +88,7 @@ const Home = () => {
     const exportFileExel = () => {
         let addFile = new FormData()
         addFile.append("file", byId("fileInput").files[0])
-        axios.post(url + "user/importExcel", addFile)
+        axios.post(url + "user/importExcel", addFile, config)
             .then(() => {
                 exBtnInline();
                 toast.success("Faylingiz muvaffaqiyatli junatildi✔")

@@ -11,8 +11,8 @@ function App() {
     <>
       {/* <NavbarDef/> */}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/user info" element={<UserList />} />
         <Route path="/user/add" element={<UserInfo />} />
       </Routes>

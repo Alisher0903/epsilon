@@ -1,19 +1,20 @@
 import { Icon } from "@iconify/react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { url } from "../api";
+import { config, setConfig, url } from "../api";
 
 function TableUSer() {
   const [userTable, setUserTable] = useState([]);
 
   useEffect(() => {
+    setConfig();
     getUserTable();
   }, []);
 
   // getUserTable
   const getUserTable = () => {
-    let userInfoID = sessionStorage.getItem("userInID");
-    axios.get(url + "user/" + userInfoID)
+    let userInfoID = sessionStorage.getItem("userInID",);
+    axios.get(url + "user/" + userInfoID, config)
       .then(res => setUserTable(res.data.body.relationshipDtos))
       .catch(() => console.log("kelmadi!"))
   }

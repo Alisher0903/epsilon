@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Icon } from '@iconify/react';
 import NavbarDef from '../../navbar/navbar';
 import PlusUserInfo from './plusUserInfo';
+import { byId, byIdVal, config, setConfig, url } from '../../api';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 const UserInfo = () => {
     const [fileName, setFileName] = useState("Faylni tanlang");
@@ -13,6 +17,10 @@ const UserInfo = () => {
             setFileName("Faylni tanlang");
         }
     };
+
+    useEffect(() => {
+        setConfig();
+    }, []);
 
     const [templates, setTemplates] = useState([{}]);
 
@@ -27,12 +35,86 @@ const UserInfo = () => {
     };
 
     // addUser
-    const addUser = () => {
-        
+    const addUser = async () => {
+        const img = new FormData();
+        img.append('file', byId('attachmentId').files[0]);
+
+        let addData = {
+            attachmentId: 0,
+            phoneNumber: byIdVal("phoneNumber"),
+            positionHeld: byIdVal("positionHeld"),
+            lastName: byIdVal("lastName"),
+            firstName: byIdVal("firstName"),
+            middleName: byIdVal("middleName"),
+            gender: byIdVal("gender"),
+            nationality: byIdVal("nationality"),
+            year: byIdVal("year"),
+            month: byIdVal("month"),
+            day: byIdVal("day"),
+            placeOfBirth: byIdVal("placeOfBirth"),
+            addressCity: byIdVal("addressCity"),
+            region: byIdVal("region"),
+            district: byIdVal("district"),
+            village: byIdVal("village"),
+            street: byIdVal("street"),
+            mcg: byIdVal("mcg"),
+            ccg: byIdVal("ccg"),
+            home: byIdVal("home"),
+            flat: byIdVal("flat"),
+            education: byIdVal("education"),
+            school: byIdVal("school"),
+            speciality: byIdVal("speciality"),
+            startWorkingDay: byIdVal("startWorkingDay"),
+            startWorkingMonth: byIdVal("startWorkingMonth"),
+            startWorkingYear: byIdVal("startWorkingYear"),
+            dateStartWork: byIdVal("dateStartWork"),
+            maritalStatus: byIdVal("maritalStatus"),
+            passportSyria: byIdVal("passportSyria"),
+            passportNumber: byIdVal("passportNumber"),
+            relationshipDtos: [
+                {
+                    closeRelatives: byIdVal("closeRelatives"),
+                    lastName: byIdVal("lastName"),
+                    firstName: byIdVal("firstName"),
+                    middleName: byIdVal("middleName"),
+                    placeOfBirth: byIdVal("placeOfBirth"),
+                    year: byIdVal("year"),
+                    month: byIdVal("month"),
+                    day: byIdVal("day"),
+                    placeOfWork: byIdVal("placeOfWork"),
+                    jobTitle: byIdVal("jobTitle"),
+                    addressCity: byIdVal("addressCity"),
+                    region: byIdVal("region"),
+                    district: byIdVal("district"),
+                    village: byIdVal("village"),
+                    street: byIdVal("street"),
+                    mcg: byIdVal("mcg"),
+                    ccg: byIdVal("ccg"),
+                    home: byIdVal("home"),
+                    flat: byIdVal("flat"),
+                },
+            ]
+        }
+
+        if (img.get('file') !== 'undefined')
+            await axios.post(url + "user/save/attachment", img, config)
+                .then(res => addData.attachmentId = res.data.body)
+                .catch(() => console.log("img ketmadi"))
+
+        await axios.post(url + "user", addData, config)
+            .then(() => {
+                toast.success("User saccessfully seved✔")
+                byId("hoHomePage").click();
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error("Xatolik yuz berdi❌")
+            })
     }
 
     return (
         <>
+            <Link to="/home" id='goHomePage'></Link>
             <NavbarDef />
             <div className='w-full min-h-screen bg-addBg pb-10'>
                 <div className="flex items-center justify-center pt-16">
@@ -296,7 +378,10 @@ const UserInfo = () => {
                 {/* yaqin qarindoshlari listi */}
                 <h2 className='text-center mb-0 mt-8 font-inika font-bold text-xxl text-black'>Близкие родственники</h2>
                 {templates.map((_, index) => (
-                    <PlusUserInfo key={index} onRemove={() => handleRemove(index)} />
+                    <PlusUserInfo
+                        // relationshipDtos={relationshipDtos}
+                        key={index}
+                        onRemove={() => handleRemove(index)} />
                 ))}
                 {/* <PlusUserInfo /> */}
 
@@ -313,6 +398,21 @@ const UserInfo = () => {
                         </button>
                         <span onClick={handleRemove} className='cursor-pointer font-inika font-bold text-lg mx-2'>Remove Lists</span>
                     </div>
+                </div>
+
+                {/* save btn */}
+                <div className='mt-20 flex justify-end px-24'>
+                    <button
+                        onClick={() => {
+                            byId("goHomePage").click();
+                        }}
+                        className='mr-4 bg-red-600 py-2 px-7 rounded-2xl shadow-lg text-white 
+                        font-inika font-bold tracking-wider hover:bg-red-700 active:scale-90 
+                        duration-300'>Close</button>
+                    <button
+                        className='bg-blue-600 py-2 px-7 rounded-2xl shadow-lg text-white 
+                        font-inika font-bold tracking-wider hover:bg-blue-700 active:scale-90 
+                        duration-300'>Save</button>
                 </div>
             </div>
         </>

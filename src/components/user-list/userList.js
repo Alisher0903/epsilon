@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TableUSer from "./table";
 import axios from "axios";
-import { getFile, url } from "../api";
+import { config, getFile, setConfig, url } from "../api";
 import img from "../assets/userImg.png";
 import NavbarDef from "../navbar/navbar";
 
@@ -9,13 +9,14 @@ function UserList() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
+    setConfig();
     getUser();
   }, []);
 
   // getUser
   const getUser = () => {
     let userInfoID = sessionStorage.getItem("userInID");
-    axios.get(url + "user/" + userInfoID)
+    axios.get(url + "user/" + userInfoID, config)
       .then(res => setUser(res.data.body))
       .catch(() => console.log("kelmadi!"))
   }
