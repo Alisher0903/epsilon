@@ -1,5 +1,6 @@
 import { Icon } from '@iconify/react';
 import React, { useState } from 'react'
+import { byId } from '../api';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -10,7 +11,7 @@ const Login = () => {
     function checkKeyPress(event) {
         if (event.key === "Enter") {
             event.preventDefault();
-            document.getElementById("loginBtn").click();
+            byId("loginBtn").click();
         }
     }
     return (

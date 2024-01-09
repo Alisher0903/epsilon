@@ -61,8 +61,16 @@ function UserList() {
                 <span className="font-bold ms-10">{user.gender}</span>
               </div>
               <div className="listlar">
-                <li className="mb-2">рождения:</li>
-                <span className="font-bold ms-10">{user.day}/{user.month}/{user.year}</span>
+                <li className="mb-2">День рождения:</li>
+                <span className="font-bold ms-10">{user.day}</span>
+              </div>
+              <div className="listlar">
+                <li className="mb-2">Месяц рождения:</li>
+                <span className="font-bold ms-10">{user.month}</span>
+              </div>
+              <div className="listlar">
+                <li className="mb-2">Год рождения:</li>
+                <span className="font-bold ms-10">{user.year}</span>
               </div>
               <div className="listlar">
                 <li className="mb-2">Место рождения: </li>
@@ -125,7 +133,23 @@ function UserList() {
                   С какого числа работает на объекте (цифрами):
                 </li>
                 <span className="font-bold ms-10">
-                  {user.startWorkingDay}/{user.startWorkingMonth}/{user.startWorkingYear}
+                  {user.startWorkingDay}
+                </span>
+              </div>
+              <div className="listlar">
+                <li className="mb-2">
+                  С какого месяца будет работать на сайте (в цифрах)::
+                </li>
+                <span className="font-bold ms-10">
+                  {user.startWorkingMonth}
+                </span>
+              </div>
+              <div className="listlar">
+                <li className="mb-2">
+                  С какого года работает на сайте (в цифрах)::
+                </li>
+                <span className="font-bold ms-10">
+                  {user.startWorkingYear}
                 </span>
               </div>
               <div className="listlar">

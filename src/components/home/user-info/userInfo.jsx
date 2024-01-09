@@ -26,171 +26,176 @@ const UserInfo = () => {
         }
     };
 
+    // addUser
+    const addUser = () => {
+        
+    }
+
     return (
         <>
             <NavbarDef />
             <div className='w-full min-h-screen bg-addBg pb-10'>
                 <div className="flex items-center justify-center pt-16">
-                    <label htmlFor="fileInput" className="cursor-pointer active:scale-90 duration-200 flex flex-row justify-center items-center">
+                    <label htmlFor="attachmentId" className="cursor-pointer active:scale-90 duration-200 flex flex-row justify-center items-center">
                         <span><Icon icon="flat-color-icons:plus" width="50" height="50" /></span>
                         <span className='font-inika font-bold text-2xl text-black hover:text-blue-800 duration-300 ml-2 tracking-wider'>{fileName}</span>
                     </label>
-                    <input id="fileInput" type="file" className="hidden" onChange={handleFileChange} />
+                    <input id="attachmentId" type="file" className="hidden" onChange={handleFileChange} />
                 </div>
 
                 <div className='flex flex-wrap justify-center mt-4 pb-10'>
                     {/* bir */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="familiya" className='mb-1 ml-1 mt-10 text-sm w-64'>Фамилия</label>
+                        <label htmlFor="lastName" className='mb-1 ml-1 mt-10 text-sm w-64'>Фамилия</label>
                         <input
-                            id='familiya'
+                            id='lastName'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Фамилия...' />
                     </div>
                     {/* ikki */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="ism" className='mb-1 ml-1 mt-10 text-sm w-64'>Имя</label>
+                        <label htmlFor="firstName" className='mb-1 ml-1 mt-10 text-sm w-64'>Имя</label>
                         <input
-                            id='ism'
+                            id='firstName'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Имя...' />
                     </div>
                     {/* uch */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="sharfi" className='mb-1 ml-1 mt-10 text-sm w-64'>Отечество</label>
+                        <label htmlFor="middleName" className='mb-1 ml-1 mt-10 text-sm w-64'>Отечество</label>
                         <input
-                            id='sharfi'
+                            id='middleName'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Отечество...' />
                     </div>
                     {/* turt */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="jins" className='mb-1 ml-1 mt-10 text-sm w-64'>Пол</label>
+                        <label htmlFor="gender" className='mb-1 ml-1 mt-10 text-sm w-64'>Пол</label>
                         <input
-                            id='jins'
+                            id='gender'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Пол...' />
                     </div>
                     {/* besh */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="millati" className='mb-1 ml-1 mt-10 text-sm w-64'>Национальност</label>
+                        <label htmlFor="nationality" className='mb-1 ml-1 mt-10 text-sm w-64'>Национальност</label>
                         <input
-                            id='millati'
+                            id='nationality'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Национальност...' />
                     </div>
                     {/* olti */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="tugilganSana" className='mb-1 ml-1 mt-10 text-sm w-64'>день рождения</label>
+                        <label htmlFor="day" className='mb-1 ml-1 mt-10 text-sm w-64'>день рождения</label>
                         <input
-                            id='tugilganSana'
+                            id='day'
                             type='number'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='день рождения...' />
                     </div>
                     {/* yetti */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="tugilganKun" className='mb-1 ml-1 mt-10 text-sm w-64'>месяц рождения</label>
+                        <label htmlFor="month" className='mb-1 ml-1 mt-10 text-sm w-64'>месяц рождения</label>
                         <input
-                            id='tugilganKun'
+                            id='month'
                             type='number'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='месяц рождения...' />
                     </div>
                     {/* sakkiz */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="tugilganYil" className='mb-1 ml-1 mt-10 text-sm w-64'>год рождения</label>
+                        <label htmlFor="year" className='mb-1 ml-1 mt-10 text-sm w-64'>год рождения</label>
                         <input
-                            id='tugilganYil'
+                            id='year'
                             type='number'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='год рождения...' />
                     </div>
                     {/* To'qqiz */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="tugilganJoyi" className='mb-1 ml-1 mt-10 text-sm w-64'>Место рождения</label>
+                        <label htmlFor="placeOfBirth" className='mb-1 ml-1 mt-10 text-sm w-64'>Место рождения</label>
                         <input
-                            id='tugilganJoyi'
+                            id='placeOfBirth'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Место рождения...' />
                     </div>
                     {/* o'n */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="manzil" className='mb-1 ml-1 mt-10 text-sm w-64'>Адрес: г.</label>
+                        <label htmlFor="addressCity" className='mb-1 ml-1 mt-10 text-sm w-64'>Адрес: г.</label>
                         <input
-                            id='manzil'
+                            id='addressCity'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Адрес: г....' />
                     </div>
                     {/* o'n bir */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="viloyat" className='mb-1 ml-1 mt-10 text-sm w-64'>Область</label>
+                        <label htmlFor="region" className='mb-1 ml-1 mt-10 text-sm w-64'>Область</label>
                         <input
-                            id='viloyat'
+                            id='region'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Область...' />
                     </div>
                     {/* o'n ikki */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="tuman" className='mb-1 ml-1 mt-10 text-sm w-64'>Район</label>
+                        <label htmlFor="district" className='mb-1 ml-1 mt-10 text-sm w-64'>Район</label>
                         <input
-                            id='tuman'
+                            id='district'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Район...' />
                     </div>
                     {/* un uch */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="qishloq" className='mb-1 ml-1 mt-10 text-sm w-64'>Поселок</label>
+                        <label htmlFor="village" className='mb-1 ml-1 mt-10 text-sm w-64'>Поселок</label>
                         <input
-                            id='qishloq'
+                            id='village'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Поселок...' />
                     </div>
                     {/* un turt */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="msg" className='mb-1 ml-1 mt-10 text-sm w-64'>МСГ</label>
+                        <label htmlFor="mcg" className='mb-1 ml-1 mt-10 text-sm w-64'>МСГ</label>
                         <input
-                            id='msg'
+                            id='mcg'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='МСГ...' />
                     </div>
                     {/* un besh */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="ssg" className='mb-1 ml-1 mt-10 text-sm w-64'>ССГ</label>
+                        <label htmlFor="ccg" className='mb-1 ml-1 mt-10 text-sm w-64'>ССГ</label>
                         <input
-                            id='ssg'
+                            id='ccg'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='ССГ...' />
                     </div>
                     {/* un olti */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="uy" className='mb-1 ml-1 mt-10 text-sm w-64'>Дом</label>
+                        <label htmlFor="home" className='mb-1 ml-1 mt-10 text-sm w-64'>Дом</label>
                         <input
-                            id='uy'
+                            id='home'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Дом...' />
                     </div>
                     {/* un yetti */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="kvartira" className='mb-1 ml-1 mt-10 text-sm w-64'>Квар-тира</label>
+                        <label htmlFor="flat" className='mb-1 ml-1 mt-10 text-sm w-64'>Квар-тира</label>
                         <input
-                            id='kvartira'
+                            id='flat'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Квар-тира...' />
                     </div>
                     {/* un sakkiz */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="talim" className='mb-1 ml-1 mt-10 text-sm w-64'>Образование</label>
+                        <label htmlFor="education" className='mb-1 ml-1 mt-10 text-sm w-64'>Образование</label>
                         <input
-                            id='talim'
+                            id='education'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Образование...' />
                     </div>
                     {/* un tuqqiz */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="bitirganVaqtVaJoy" className='mb-1 ml-1 mt-10 text-sm w-64'>Что и когда окончил</label>
+                        <label htmlFor="school" className='mb-1 ml-1 mt-10 text-sm w-64'>Что и когда окончил</label>
                         <input
-                            id='bitirganVaqtVaJoy'
+                            id='school'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Что и когда окончил...' />
                     </div>
@@ -204,81 +209,87 @@ const UserInfo = () => {
                     </div>
                     {/* yigirma bir */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="ishlaganKunNumber" className='mb-1 ml-1 mt-10 text-sm w-64'>С какого числа вы начали работать</label>
+                        <label htmlFor="startWorkingDay" className='mb-1 ml-1 mt-10 text-sm w-64'>С какого числа вы начали работать</label>
                         <input
-                            id='ishlaganKunNumber'
+                            id='startWorkingDay'
                             type='number'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='даты...' />
                     </div>
                     {/* yigirma ikki */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="ishlaganOyNumber" className='mb-1 ml-1 mt-10 text-sm w-64'>В каком месяце вы начали работать</label>
+                        <label htmlFor="startWorkingMonth" className='mb-1 ml-1 mt-10 text-sm w-64'>В каком месяце вы начали работать</label>
                         <input
-                            id='ishlaganOyNumber'
+                            id='startWorkingMonth'
                             type='number'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='месяц...' />
                     </div>
                     {/* yigirma uch */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="ishlaganYilNumber" className='mb-1 ml-1 mt-10 text-sm w-64'>В каком году вы начали работать</label>
+                        <label htmlFor="startWorkingYear" className='mb-1 ml-1 mt-10 text-sm w-64'>В каком году вы начали работать</label>
                         <input
-                            id='ishlaganYilNumber'
+                            id='startWorkingYear'
                             type='number'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='год...' />
                     </div>
                     {/* yigirma turt */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="pasportSeria" className='mb-1 ml-1 mt-10 text-sm w-64'>Паспорт серия</label>
+                        <label htmlFor="passportSyria" className='mb-1 ml-1 mt-10 text-sm w-64'>Паспорт серия</label>
                         <input
-                            id='pasportSeria'
+                            id='passportSyria'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Паспорт серия...' />
                     </div>
                     {/* yigirma besh */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="pasportNumber" className='mb-1 ml-1 mt-10 text-sm w-64'>Номер паспорта</label>
+                        <label htmlFor="passportNumber" className='mb-1 ml-1 mt-10 text-sm w-64'>Номер паспорта</label>
                         <input
-                            id='pasportNumber'
+                            id='passportNumber'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='Номер паспорта...' />
                     </div>
                     {/* yigirma olti */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="ishlaydiKun" className='mb-1 ml-1 mt-10 text-sm w-64'>С какого дня будет работать сайт (в цифрах)</label>
+                        <label htmlFor="dateStartWork" className='mb-1 ml-1 mt-10 text-sm w-64'>С какого дня будет работать сайт (в цифрах)</label>
                         <input
-                            id='ishlaydiKun'
-                            type='number'
+                            id='dateStartWork'
+                            type='date'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
                             placeholder='день...' />
                     </div>
                     {/* yigirma yetti */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="ishlaydiOy" className='mb-1 ml-1 mt-10 text-sm w-64'>С какого месяца будет работать на сайте (в цифрах)</label>
+                        <label htmlFor="maritalStatus" className='mb-1 ml-1 mt-10 text-sm w-64'>Семейное положение (женат, неженат, замужем, незамужем, разведен, разведена)</label>
                         <input
-                            id='ishlaydiOy'
-                            type='number'
+                            id='maritalStatus'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
-                            placeholder='месяц...' />
+                            placeholder='Семейная ситуация...' />
                     </div>
                     {/* yigirma sakkiz */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="ishlaydiYil" className='mb-1 ml-1 mt-10 text-sm w-64'>С какого года работает на сайте (в цифрах)</label>
+                        <label htmlFor="positionHeld" className='mb-1 ml-1 mt-10 text-sm w-64'>Занимаемая должность</label>
                         <input
-                            id='ishlaydiYil'
-                            type='number'
+                            id='positionHeld'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
-                            placeholder='год...' />
+                            placeholder='Занимаемая должность...' />
                     </div>
-                    {/* yigirma toqqiz */}
+                    {/* yigirma tuqqiz */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="oilaviyShariot" className='mb-1 ml-1 mt-10 text-sm w-64'>Семейное положение (женат, неженат, замужем, незамужем, разведен, разведена)</label>
+                        <label htmlFor="street" className='mb-1 ml-1 mt-10 text-sm w-64'>Улица</label>
                         <input
-                            id='oilaviyShariot'
+                            id='street'
                             className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
-                            placeholder='Семейная ситуация...' />
+                            placeholder='Улица...' />
+                    </div>
+                    {/* uttiz */}
+                    <div className='flex flex-col font-inika mx-2'>
+                        <label htmlFor="speciality" className='mb-1 ml-1 mt-10 text-sm w-64'>Специальность</label>
+                        <input
+                            id='speciality'
+                            className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
+                            placeholder='Специальность...' />
                     </div>
                 </div>
 

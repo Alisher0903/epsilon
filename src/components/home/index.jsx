@@ -11,7 +11,16 @@ const Home = () => {
 
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [loadingEx, setLoadingEx] = useState(false);
+    const [fileName, setFileName] = useState("");
+
+    const handleFileChange = (e) => {
+        const selectedFile = e.target.files[0];
+        if (selectedFile) {
+            setFileName(selectedFile.name);
+        } else {
+            setFileName("");
+        }
+    };
 
     useEffect(() => {
         getUser();
@@ -46,6 +55,13 @@ const Home = () => {
         else getUser();
     }
 
+    function checkKeyPress(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            byId("inputBtn").click();
+        }
+    }
+
     const importFile = () => {
         setLoading(true);
         axios.get(url + "user/exportExcel", { responseType: 'blob' })
@@ -68,7 +84,31 @@ const Home = () => {
             });
     }
 
-    const load = () => setLoadingEx(!loadingEx);
+    const exportFileExel = () => {
+        let addFile = new FormData()
+        addFile.append("file", byId("fileInput").files[0])
+        axios.post(url + "user/importExcel", addFile)
+            .then(() => {
+                exBtnInline();
+                toast.success("Faylingiz muvaffaqiyatli junatildi✔")
+            })
+            .catch(err => {
+                exBtnInline();
+                toast.error("Xatolik yuz berdi❌")
+                console.log(err);
+            })
+    }
+
+    const exBtnFunc = () => {
+        byId("exBtn").style.display = "none";
+        byId("exBtnTwo").style.display = "inline";
+    }
+
+    const exBtnInline = () => {
+        byId("exBtn").style.display = "inline";
+        byId("exBtnTwo").style.display = "none";
+        setFileName("");
+    }
 
     return (
         <>
@@ -102,18 +142,25 @@ const Home = () => {
                                     </>
                                 }
                             </button>
-                            <button onClick={load} disabled={loadingEx} className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
-                                {loadingEx ?
-                                    <>
-                                        Export
-                                        < Icon className='inline-block ml-2' icon="material-symbols:downloading" rotate={2} width="27" />
-                                    </> :
-                                    <>
-                                        Export
-                                        <Icon className='inline-block ml-2' icon="line-md:downloading-loop" width="27" rotate={2} />
-                                    </>
-                                }
+                            <button
+                                onClick={exBtnFunc}
+                                id='exBtn'
+                                className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
+                                <label htmlFor="fileInput" className="cursor-pointer active:scale-90 duration-200">
+                                    <span className='tracking-wider'>Faylni tanlang</span>
+                                    <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" rotate={2} />
+                                </label>
+                                <input id="fileInput" type="file" className="hidden" onChange={handleFileChange} />
                             </button>
+                            <button
+                                onClick={exportFileExel}
+                                style={{ display: "none" }}
+                                id='exBtnTwo'
+                                className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
+                                <span className='tracking-wider'>Export</span>
+                                <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" rotate={2} />
+                            </button>
+                            <span className='tracking-wider'>{fileName}</span>
                         </div>
                         <div>
                             <label
@@ -122,11 +169,13 @@ const Home = () => {
                             <div className="flex rounded-xl shadow-lg overflow-hidden">
                                 <input
                                     id="searchIn"
+                                    onKeyDown={checkKeyPress}
                                     className='py-2.5 ps-4 shadow-lg w-64 bg-slate-200 focus:outline-none focus:bg-slate-100
                                     duration-500 placeholder:font-inika text-gray-700'
                                     placeholder='Search...' />
                                 <button
                                     onClick={searchUser}
+                                    id='inputBtn'
                                     className="w-[2.875rem] h-[2.875rem] flex-shrink-0 inline-flex justify-center items-center 
                                     gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white 
                                     hover:bg-blue-700 duration-200 disabled:opacity-50 disabled:pointer-events-none 
