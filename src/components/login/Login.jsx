@@ -19,6 +19,7 @@ const Login = () => {
     }
 
     const addLogin = () => {
+        setIsLoading(true)
         let addData = {
             phoneNumber: byId("phoneNumber").value,
             password: byId("password").value
@@ -29,15 +30,17 @@ const Login = () => {
                 sessionStorage.setItem("role", res.data.message)
                 toast.success("Tizimga muvaffaqiyatli kirdingiz✔")
                 byId("goHome").click();
+                setIsLoading(false)
             })
             .catch(() => {
                 toast.error("Raqam yoki parol xato❌")
+                setIsLoading(false)
             })
 
     }
     return (
         <>
-        <Link to="/home" id='goHome'></Link>
+            <Link to="/home" id='goHome'></Link>
             <div className='bg-gradient-to-t from-teal-100 to-blue-500 w-full h-screen flex justify-center items-center'>
                 <div className="bg-white p-8 rounded-lg shadow-lg w-96 font-inika">
                     <h2 className="text-2xl font-bold mb-2 text-gray-800">
@@ -83,11 +86,14 @@ const Login = () => {
                             onClick={addLogin}
                             id="loginBtn"
                             className={`w-full py-2 px-4 mt-7 bg-purple-500 hover:bg-purple-600 
-                        duration-300 shadow-fuchsia-700 rounded text-white font-bold 
-                        ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+                            duration-300 shadow-fuchsia-700 rounded-lg text-white font-bold 
+                            ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                             disabled={isLoading}>
                             {isLoading ? (
-                                <span class="loader"></span>
+                                <span className=' flex justify-center items-center'>
+                                    Sign In
+                                    <Icon icon="eos-icons:bubble-loading" className='ml-3' width="25" />
+                                </span>
                             ) : (
                                 "Sign In"
                             )}
