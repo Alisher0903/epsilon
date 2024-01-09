@@ -42,7 +42,11 @@ const Home = () => {
     const searchUser = () => {
         let searchVal = byId("searchIn").value;
         if (!!searchVal) {
-            axios.post(url + "user/filter?data=" + searchVal, config)
+            axios.post(url + "user/filter?data=" + searchVal, {
+                headers: {
+                    Authorization: sessionStorage.getItem("jwtToken"),
+                }
+            })
                 .then(res => {
                     setUser(res.data.body)
                 })

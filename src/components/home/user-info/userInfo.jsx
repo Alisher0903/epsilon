@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 
 const UserInfo = () => {
     const [fileName, setFileName] = useState("Faylni tanlang");
+
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
@@ -25,6 +26,7 @@ const UserInfo = () => {
     const [templates, setTemplates] = useState([{}]);
 
     const handleCreate = () => {
+        console.log(templates.length);
         setTemplates((prevTemplates) => [...prevTemplates, {}]);
     };
 
@@ -38,6 +40,29 @@ const UserInfo = () => {
     const addUser = async () => {
         const img = new FormData();
         img.append('file', byId('attachmentId').files[0]);
+        let relationshipDtos = templates.map((_, i) => {
+            return {
+                closeRelatives: byIdVal(`closeRelatives${i}`),
+                lastName: byIdVal(`lastName${i}`),
+                firstName: byIdVal(`firstName${i}`),
+                middleName: byIdVal(`middleName${i}`),
+                placeOfBirth: byIdVal(`placeOfBirth${i}`),
+                year: byIdVal(`year${i}`),
+                month: byIdVal(`month${i}`),
+                day: byIdVal(`day${i}`),
+                placeOfWork: byIdVal(`placeOfWork${i}`),
+                jobTitle: byIdVal(`jobTitle${i}`),
+                addressCity: byIdVal(`addressCity${i}`),
+                region: byIdVal(`region${i}`),
+                district: byIdVal(`district${i}`),
+                village: byIdVal(`village${i}`),
+                street: byIdVal(`street${i}`),
+                mcg: byIdVal(`mcg${i}`),
+                ccg: byIdVal(`ccg${i}`),
+                home: byIdVal(`home${i}`),
+                flat: byIdVal(`flat${i}`),
+            }
+        });
 
         let addData = {
             attachmentId: 0,
@@ -71,29 +96,7 @@ const UserInfo = () => {
             maritalStatus: byIdVal("maritalStatus"),
             passportSyria: byIdVal("passportSyria"),
             passportNumber: byIdVal("passportNumber"),
-            relationshipDtos: [
-                {
-                    closeRelatives: byIdVal("closeRelatives"),
-                    lastName: byIdVal("lastName"),
-                    firstName: byIdVal("firstName"),
-                    middleName: byIdVal("middleName"),
-                    placeOfBirth: byIdVal("placeOfBirth"),
-                    year: byIdVal("year"),
-                    month: byIdVal("month"),
-                    day: byIdVal("day"),
-                    placeOfWork: byIdVal("placeOfWork"),
-                    jobTitle: byIdVal("jobTitle"),
-                    addressCity: byIdVal("addressCity"),
-                    region: byIdVal("region"),
-                    district: byIdVal("district"),
-                    village: byIdVal("village"),
-                    street: byIdVal("street"),
-                    mcg: byIdVal("mcg"),
-                    ccg: byIdVal("ccg"),
-                    home: byIdVal("home"),
-                    flat: byIdVal("flat"),
-                },
-            ]
+            relationshipDtos
         }
 
         if (img.get('file') !== 'undefined')
@@ -102,9 +105,9 @@ const UserInfo = () => {
                 .catch(() => console.log("img ketmadi"))
 
         await axios.post(url + "user", addData, config)
-            .then(() => {
+            .then(async () => {
                 toast.success("User saccessfully seved✔")
-                byId("hoHomePage").click();
+                await byId("hoHomePage").click();
             })
             .catch(err => {
                 console.log(err);
@@ -379,6 +382,7 @@ const UserInfo = () => {
                 <h2 className='text-center mb-0 mt-8 font-inika font-bold text-xxl text-black'>Близкие родственники</h2>
                 {templates.map((_, index) => (
                     <PlusUserInfo
+                        i={index}
                         // relationshipDtos={relationshipDtos}
                         key={index}
                         onRemove={() => handleRemove(index)} />
@@ -412,7 +416,7 @@ const UserInfo = () => {
                     <button
                         className='bg-blue-600 py-2 px-7 rounded-2xl shadow-lg text-white 
                         font-inika font-bold tracking-wider hover:bg-blue-700 active:scale-90 
-                        duration-300'>Save</button>
+                        duration-300' onClick={addUser}>Save</button>
                 </div>
             </div>
         </>
