@@ -36,16 +36,13 @@ const Login = () => {
                 toast.error("Raqam yoki parol xato❌")
                 setIsLoading(false)
             })
-
     }
     return (
         <>
             <Link to="/home" id='goHome'></Link>
             <div className='bg-gradient-to-t from-teal-100 to-blue-500 w-full h-screen flex justify-center items-center'>
                 <div className="bg-white p-8 rounded-lg shadow-lg w-96 font-inika">
-                    <h2 className="text-2xl font-bold mb-2 text-gray-800">
-                        Epsilon Company
-                    </h2>
+                    <h2 className="text-2xl font-bold mb-2 text-gray-800">Epsilon Company</h2>
                     <div className={`mt-5`}>
                         <label htmlFor='phoneNumber' className="block mb-1 font-bold text-gray-500">
                             Phone Number
@@ -89,17 +86,14 @@ const Login = () => {
                             duration-300 shadow-fuchsia-700 rounded-lg text-white font-bold 
                             ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                             disabled={isLoading}>
-                            {isLoading ? (
+                            {isLoading ?
                                 <span className=' flex justify-center items-center'>
                                     Sign In
                                     <Icon icon="eos-icons:bubble-loading" className='ml-3' width="25" />
                                 </span>
-                            ) : (
-                                "Sign In"
-                            )}
+                                : "Sign In"
+                            }
                         </button>
-
-
                     </div>
                 </div>
             </div>
