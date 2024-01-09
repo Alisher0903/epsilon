@@ -24,6 +24,7 @@ const UserInfo = () => {
     }, []);
 
     const [templates, setTemplates] = useState([{}]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleCreate = () => {
         console.log(templates.length);
@@ -38,6 +39,7 @@ const UserInfo = () => {
 
     // addUser
     const addUser = async () => {
+        setIsLoading(true)
         const img = new FormData();
         img.append('file', byId('attachmentId').files[0]);
         let relationshipDtos = templates.map((_, i) => {
@@ -108,9 +110,10 @@ const UserInfo = () => {
             .then(async () => {
                 toast.success("User saccessfully seved✔")
                 await byId("hoHomePage").click();
+                setIsLoading(false)
             })
-            .catch(err => {
-                console.log(err);
+            .catch(() => {
+                setIsLoading(false)
                 toast.error("Xatolik yuz berdi❌")
             })
     }
@@ -156,10 +159,13 @@ const UserInfo = () => {
                     {/* turt */}
                     <div className='flex flex-col font-inika mx-2'>
                         <label htmlFor="gender" className='mb-1 ml-1 mt-10 text-sm w-64'>Пол</label>
-                        <input
-                            id='gender'
-                            className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
-                            placeholder='Пол...' />
+                        <select
+                            id="gender"
+                            className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'>
+                            <option selected disabled>Пол...</option>
+                            <option value="М">Мужской</option>
+                            <option value="Ж">Женский</option>
+                        </select>
                     </div>
                     {/* besh */}
                     <div className='flex flex-col font-inika mx-2'>
@@ -337,7 +343,7 @@ const UserInfo = () => {
                     </div>
                     {/* yigirma olti */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="dateStartWork" className='mb-1 ml-1 mt-10 text-sm w-64'>С какого дня будет работать сайт (в цифрах)</label>
+                        <label htmlFor="dateStartWork" className='mb-1 ml-1 mt-10 text-sm w-64'>С какого дня будет работать сайт</label>
                         <input
                             id='dateStartWork'
                             type='date'
@@ -346,11 +352,18 @@ const UserInfo = () => {
                     </div>
                     {/* yigirma yetti */}
                     <div className='flex flex-col font-inika mx-2'>
-                        <label htmlFor="maritalStatus" className='mb-1 ml-1 mt-10 text-sm w-64'>Семейное положение (женат, неженат, замужем, незамужем, разведен, разведена)</label>
-                        <input
-                            id='maritalStatus'
-                            className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'
-                            placeholder='Семейная ситуация...' />
+                        <label htmlFor="maritalStatus" className='mb-1 ml-1 mt-10 text-sm w-64'>Семейное положение</label>
+                        <select
+                            id="maritalStatus"
+                            className='shadow-lg px-3 py-2 w-64 rounded-lg bg-addInputBg placeholder:text-gray-700 focus:outline-blue-700 duration-200'>
+                            <option selected disabled>Семейная ситуация...</option>
+                            <option value="Женат">Женат</option>
+                            <option value="Неженат">Неженат</option>
+                            <option value="Замужем">Замужем</option>
+                            <option value="Незамужем">Незамужем</option>
+                            <option value="Разведен">Разведен</option>
+                            <option value="Разведена">Разведена</option>
+                        </select>
                     </div>
                     {/* yigirma sakkiz */}
                     <div className='flex flex-col font-inika mx-2'>
@@ -383,11 +396,9 @@ const UserInfo = () => {
                 {templates.map((_, index) => (
                     <PlusUserInfo
                         i={index}
-                        // relationshipDtos={relationshipDtos}
                         key={index}
                         onRemove={() => handleRemove(index)} />
                 ))}
-                {/* <PlusUserInfo /> */}
 
                 <div className='flex justify-center items-center mt-3'>
                     <div className='flex justify-center items-center active:scale-90 duration-300 mx-5'>
@@ -414,9 +425,19 @@ const UserInfo = () => {
                         font-inika font-bold tracking-wider hover:bg-red-700 active:scale-90 
                         duration-300'>Close</button>
                     <button
-                        className='bg-blue-600 py-2 px-7 rounded-2xl shadow-lg text-white 
+                        className={`bg-blue-600 py-2 px-7 rounded-2xl shadow-lg text-white 
                         font-inika font-bold tracking-wider hover:bg-blue-700 active:scale-90 
-                        duration-300' onClick={addUser}>Save</button>
+                        duration-300 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+                        onClick={addUser}
+                        disabled={isLoading}>
+                        {isLoading ?
+                            <span className=' flex justify-center items-center'>
+                                Save
+                                <Icon icon="eos-icons:bubble-loading" className='ml-3' width="25" />
+                            </span>
+                            : "Save"
+                        }
+                    </button>
                 </div>
             </div>
         </>
