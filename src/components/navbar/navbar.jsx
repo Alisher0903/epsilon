@@ -9,15 +9,15 @@ const NavbarDef = () => {
 
     const [user, setUser] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
+    const [isOpenEdit, setIsOpenEdit] = useState(false);
 
     useEffect(() => {
         setConfig();
         getUser(setUser)
     }, []);
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
+    const toggleMenu = () => setIsOpen(!isOpen)
+    const toggleMenuEdit = () => setIsOpenEdit(!isOpen)
 
     const logOut = () => byId("logOut").click();
 
