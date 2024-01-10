@@ -8,14 +8,14 @@ import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 const UserInfo = () => {
-    const [fileName, setFileName] = useState("Faylni tanlang");
+    const [fileName, setFileName] = useState("Выберите изображение");
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
             setFileName(selectedFile.name);
         } else {
-            setFileName("Faylni tanlang");
+            setFileName("Выберите изображение");
         }
     };
 
@@ -405,13 +405,13 @@ const UserInfo = () => {
                         <button onClick={handleCreate} className='bg-plussBtnBg text-white active:scale-90 duration-300 rounded-lg p-2'>
                             <Icon icon="typcn:plus" className='w-8 h-8' />
                         </button>
-                        <span onClick={handleCreate} className='cursor-pointer font-inika font-bold text-lg mx-2'>Add Lists</span>
+                        <span onClick={handleCreate} className='cursor-pointer font-inika font-bold text-lg mx-2'>Добавить больше</span>
                     </div>
                     <div id='removeBtn' className='flex justify-center items-center active:scale-90 duration-300 mx-5'>
                         <button onClick={handleRemove} className='bg-plussBtnBg text-white active:scale-90 duration-300 rounded-lg p-2'>
                             <Icon icon="typcn:minus" className='w-8 h-8' />
                         </button>
-                        <span onClick={handleRemove} className='cursor-pointer font-inika font-bold text-lg mx-2'>Remove Lists</span>
+                        <span onClick={handleRemove} className='cursor-pointer font-inika font-bold text-lg mx-2'>Снять</span>
                     </div>
                 </div>
 
@@ -423,7 +423,7 @@ const UserInfo = () => {
                         }}
                         className='mr-4 bg-red-600 py-2 px-7 rounded-2xl shadow-lg text-white 
                         font-inika font-bold tracking-wider hover:bg-red-700 active:scale-90 
-                        duration-300'>Close</button>
+                        duration-300'>Назад</button>
                     <button
                         className={`bg-blue-600 py-2 px-7 rounded-2xl shadow-lg text-white 
                         font-inika font-bold tracking-wider hover:bg-blue-700 active:scale-90 
@@ -432,10 +432,10 @@ const UserInfo = () => {
                         disabled={isLoading}>
                         {isLoading ?
                             <span className=' flex justify-center items-center'>
-                                Save
+                                Сохранять
                                 <Icon icon="eos-icons:bubble-loading" className='ml-3' width="25" />
                             </span>
-                            : "Save"
+                            : "Сохранять"
                         }
                     </button>
                 </div>

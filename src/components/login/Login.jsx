@@ -22,7 +22,9 @@ const Login = () => {
         setIsLoading(true)
         let addData = {
             phoneNumber: byId("phoneNumber").value,
-            password: byId("password").value
+            password: byId("password").value,
+            // prePassword: "string",
+            // name: "string"
         }
         axios.post(url + "user/login", addData)
             .then(res => {

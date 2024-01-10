@@ -115,6 +115,7 @@ const Home = () => {
         setFileName("");
     }
 
+    console.log(user);
     return (
         <>
             <NavbarDef />
@@ -123,7 +124,7 @@ const Home = () => {
                 <Link to="/user info" id='userInfo'></Link>
                 <div className='container'>
                     <div className='flex justify-center flex-col items-center mt-5 w-full font-inika'>
-                        <h3 className='text-xxl font-bold text-headColor'>Epsilon Development Company</h3>
+                        <h3 className='text-xxl font-bold text-headColor'>Компания Эпсилон Девелопмент</h3>
                         <p className='px-20 mt-3 text-xl font-semibold text-infoColor leading-7'>
                             Lorem ipsum dolor sit amet consectetur. Sed dui eu odio viverra sit aliquam lectus.
                             Velit nisl dictum sollicitudin felis dictumst proin ipsum mauris. Blandit eget nisl
@@ -133,16 +134,16 @@ const Home = () => {
                     <div className='flex justify-between items-center mt-8'>
                         <div>
                             <button onClick={goUserAdd} className='addBtn mr-4 bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
-                                Xodim qo'shish
+                                Добавить сотрудника
                             </button>
                             <button onClick={importFile} disabled={loading} className='addBtn mr-4 bg-btnBgIm font-inika active:scale-90 duration-200'>
                                 {loading ?
                                     <>
-                                        Import
+                                        Импортировать
                                         <Icon className='inline-block ml-2' icon="line-md:downloading-loop" width="27" />
                                     </> :
                                     <>
-                                        Import
+                                        Импортировать
                                         <Icon className='inline-block ml-2' icon="material-symbols:downloading" width="27" />
                                     </>
                                 }
@@ -152,7 +153,7 @@ const Home = () => {
                                 id='exBtn'
                                 className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
                                 <label htmlFor="fileInput" className="cursor-pointer active:scale-90 duration-200">
-                                    <span className='tracking-wider'>Faylni tanlang</span>
+                                    <span className='tracking-wider'>Загрузите файл</span>
                                     <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" rotate={2} />
                                 </label>
                                 <input id="fileInput" type="file" className="hidden" onChange={handleFileChange} />
@@ -162,7 +163,7 @@ const Home = () => {
                                 style={{ display: "none" }}
                                 id='exBtnTwo'
                                 className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
-                                <span className='tracking-wider'>Export</span>
+                                <span className='tracking-wider'>Экспорт</span>
                                 <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" rotate={2} />
                             </button>
                             <span className='tracking-wider'>{fileName}</span>
@@ -177,7 +178,7 @@ const Home = () => {
                                     onKeyDown={checkKeyPress}
                                     className='py-2.5 ps-4 shadow-lg w-64 bg-slate-200 focus:outline-none focus:bg-slate-100
                                     duration-500 placeholder:font-inika text-gray-700'
-                                    placeholder='Search...' />
+                                    placeholder='Поиск...' />
                                 <button
                                     onClick={searchUser}
                                     id='inputBtn'
@@ -205,11 +206,11 @@ const Home = () => {
                                     <th className='px-5 py-3'>Отечество</th>
                                     <th className='px-5 py-3'>Пол</th>
                                     <th className='px-5 py-3'>Год рождения</th>
-                                    <th className='px-5 py-3'>Action</th>
+                                    <th className='px-5 py-3'>Действие</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {user.length !== 0 ?
+                                {user ?
                                     user.map((item, i) =>
                                         <tr className="border-t text-gray-500 even:bg-slate-100 hover:bg-slate-200 duration-150 text-center">
                                             <td className="px-5 py-3">{i + 1}</td>
@@ -234,7 +235,7 @@ const Home = () => {
                                                         goUserInfo();
                                                         sessionStorage.setItem("userInID", item.userId)
                                                     }}
-                                                    className='addBtn bg-infoBtnBg text-black font-inika active:scale-90 duration-200'>Qo’shimcha</button>
+                                                    className='addBtn bg-infoBtnBg text-black font-inika active:scale-90 duration-200'>Дополнительный</button>
                                             </td>
                                         </tr>
                                     ) :
@@ -254,6 +255,41 @@ const Home = () => {
                                 }
                             </tbody>
                         </table>
+                        <nav aria-label="Page navigation example">
+                            <ul class="flex items-center -space-x-px h-10 text-base">
+                                <li>
+                                    <a href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                        <span class="sr-only">Previous</span>
+                                        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                                </li>
+                                <li>
+                                    <a href="#" aria-current="page" class="z-10 flex items-center justify-center px-4 h-10 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
+                                </li>
+                                <li>
+                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                        <span class="sr-only">Next</span>
+                                        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
