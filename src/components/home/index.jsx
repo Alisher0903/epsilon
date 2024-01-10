@@ -14,11 +14,13 @@ const Home = () => {
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingEx, setLoadingEx] = useState(false);
+    const [inputHidden, setInputHidden] = useState(false);
     const [fileName, setFileName] = useState("");
     const [page, setPage] = useState(0);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
+        setInputHidden(true);
         if (selectedFile) {
             setFileName(selectedFile.name);
         } else {
@@ -105,10 +107,13 @@ const Home = () => {
         axios.post(url + "user/importExcel", addFile, config)
             .then((res) => {
                 setLoading(false)
+                setInputHidden(false)
                 toast.success(res.data.message)
+                setFileName('')
             })
             .catch(err => {
                 setLoading(false)
+                setInputHidden(false)
                 console.log(err);
                 toast.error("Xatolik yuz berdi❌")
             })
@@ -159,29 +164,32 @@ const Home = () => {
                                     </>
                                 }
                             </button>
-                            {/* <label htmlFor="fileInput"> */}
-                            <button
-                                onClick={exportFileExel}
-                                // htmlFor="fileInput"
-                                disabled={loading} className='addBtn bg-btnBgEx mr-4 font-inika active:scale-90 duration-200'>
-                                {loading ?
-                                    <>
-                                        Экспорт файл
-                                        <Icon icon="eos-icons:bubble-loading" className='inline-block ml-2 text-red-700' width="24" />
-                                    </> :
-                                    <>
-                                        Экспорт файл
-                                        <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" />
-                                    </>
-                                }
-                            </button>
-                            {/* </label> */}
-                            <label htmlFor="fileInput" className="bg-btnBgEx px-2 py-3 shadow-lg rounded-xl font-medium cursor-pointer active:scale-90 duration-200">
-                                <span className='tracking-wider text-white'>
-                                    {fileName !== "" ? fileName : "Загрузите файл"}
+                                <span style={{display: `${inputHidden ? 'inline' : 'none'}`}}>
+                                    <button
+                                        onClick={exportFileExel}
+                                        disabled={loading} className='addBtn bg-btnBgEx mr-4 font-inika active:scale-90 duration-200'>
+                                        {loading ?
+                                            <>
+                                                Экспорт файл
+                                                <Icon icon="eos-icons:bubble-loading" className='inline-block ml-2 text-red-700' width="24" />
+                                            </> :
+                                            <>
+                                                Экспорт файл
+                                                <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" />
+                                            </>
+                                        }
+                                    </button>
                                 </span>
-                            </label>
-                            <input id="fileInput" type="file" className="hidden" onChange={handleFileChange} />
+                                <span style={{display: `${inputHidden ? 'none' : 'inline'}`}}>
+                                    <label
+                                        htmlFor="fileInput"
+                                        className="addBtn bg-btnBgEx rounded-xl font-medium cursor-pointer active:scale-90 duration-200">
+                                        <span className='tracking-wider text-white'>
+                                            {fileName !== "" ? fileName : "Загрузите файл"}
+                                        </span>
+                                    </label>
+                                    <input id="fileInput" type="file" className="hidden" onChange={handleFileChange} />
+                                </span>
                         </div>
 
                         {/* search */}
