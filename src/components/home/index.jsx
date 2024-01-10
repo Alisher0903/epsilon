@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import img from '../assets/table-img.png';
+import img from '../assets/user.png';
 import { Link } from 'react-router-dom';
 import { byId, config, getFile, setConfig, url } from '../api';
 import axios from 'axios';
@@ -33,10 +33,9 @@ const Home = () => {
 
     // getUser
     const getUser = () => {
-        axios.get(`${url}user?page=0&size=10`, config)
+        axios.get(`${url}user`, config)
             .then(res => {
                 setUser(res.data.object);
-                console.log(res.data.object);
                 setPage(res.data.totalPage)
             })
             .catch(() => console.log("kelmadi!"))
@@ -50,14 +49,15 @@ const Home = () => {
     const searchUser = () => {
         let searchVal = byId("searchIn").value;
         if (!!searchVal) {
-            axios.post(url + "user/filter?data=" + searchVal, {
+
+            let config = {
                 headers: {
-                    Authorization: sessionStorage.getItem("jwtToken"),
+                    Authorization: sessionStorage.getItem("jwtToken")
                 }
+            }
+            axios.post(url + "user/filter?data=" + searchVal, "", config).then(res => {
+                setUser(res.data.body)
             })
-                .then(res => {
-                    setUser(res.data.body)
-                })
                 .catch((err) => {
                     if (err.response.data.success === false) {
                         toast.error("Siz qidirgan ma'lumot topilmadi❌")
@@ -76,7 +76,7 @@ const Home = () => {
     }
 
     const importFile = () => {
-        setLoading(true);
+        setLoadingEx(true)
         axios.get(url + "user/exportExcel", config, { responseType: 'blob' })
             .then(res => {
                 const blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
@@ -91,31 +91,31 @@ const Home = () => {
             .catch(error => {
                 console.error('Error downloading file:', error);
                 toast.error("Xatolik yuz berdi");
+                setLoadingEx(false);
             })
             .finally(() => {
-                setLoading(false);
+                setLoadingEx(false);
             });
     }
 
     const exportFileExel = () => {
-        setLoadingEx(true)
+        setLoading(true);
         let addFile = new FormData()
         addFile.append("file", byId("fileInput").files[0])
         axios.post(url + "user/importExcel", addFile, config)
-            .then(() => {
-                toast.success("Faylingiz muvaffaqiyatli junatildi✔")
-                setLoadingEx(false)
+            .then((res) => {
+                setLoading(false)
+                toast.success(res.data.message)
             })
             .catch(err => {
-                setLoadingEx(false)
+                setLoading(false)
+                console.log(err);
                 toast.error("Xatolik yuz berdi❌")
-                // console.log(err);
             })
     }
 
     const handelPageClick = (event) => {
         const pageNumber = event.selected;
-        // console.log("page number ", pageNumber);
         axios.get(url + "user?page=" + pageNumber + "&size=10", config).then(res => {
             setUser(res.data.object)
         });
@@ -131,9 +131,11 @@ const Home = () => {
                     <div className='flex justify-center flex-col items-center mt-5 w-full font-inika'>
                         <h3 className='text-xxl font-bold text-headColor'>Компания Эпсилон Девелопмент</h3>
                         <p className='px-20 mt-3 text-xl font-semibold text-infoColor leading-7'>
-                            Lorem ipsum dolor sit amet consectetur. Sed dui eu odio viverra sit aliquam lectus.
-                            Velit nisl dictum sollicitudin felis dictumst proin ipsum mauris. Blandit eget nisl
-                            nec libero eleifend porttitor. Enim erat tortor ultrices penatibus.
+                            Epsilon Development Company LLC – иностранное предприятие, основанное в США.
+                            Основная задача компании – поиск нефтяных и газовых месторождений на
+                            территории Республики Узбекистан. В спектр задач организации входит также
+                            создание оптимальных энергетических проектов, позволяющих максимально
+                            эффективно использовать природные ресурсы.
                         </p>
                     </div>
                     <div className='flex justify-between items-center mt-8'>
@@ -141,36 +143,41 @@ const Home = () => {
                             <button onClick={goUserAdd} className='addBtn mr-4 bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
                                 Добавить сотрудника
                             </button>
-                            <button onClick={importFile} disabled={loading} className='addBtn mr-4 bg-btnBgIm font-inika active:scale-90 duration-200'>
-                                {loading ?
-                                    <>
-                                        Импортировать
-                                        <Icon className='inline-block ml-2' icon="line-md:downloading-loop" width="27" />
-                                    </> :
-                                    <>
-                                        Импортировать
-                                        <Icon className='inline-block ml-2' icon="material-symbols:downloading" width="27" />
-                                    </>
-                                }
-                            </button>
                             <button
-                                onClick={exportFileExel}
-                                id='exBtnTwo'
-                                className={`addBtn bg-btnBgEx font-inika active:scale-90 duration-200
+                                onClick={importFile}
+                                className={`addBtn bg-btnBgIm font-inika active:scale-90 duration-200 mr-4
                                 ${loadingEx ? "cursor-not-allowed" : ""}`} disabled={loadingEx}>
                                 {loadingEx ?
                                     <>
-                                        Экспортировать файл
-                                        <Icon icon="eos-icons:bubble-loading" className='inline-block ml-2' width="24" />
+                                        Импорт
+                                        <Icon icon="eos-icons:bubble-loading" className='inline-block ml-2 text-red-700' width="24" />
                                     </> :
                                     <>
-                                        <span className='tracking-wider'>Экспортировать файл</span>
-                                        <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" rotate={2} />
+                                        Импорт
+                                        <Icon className='inline-block ml-2' icon="material-symbols:downloading" width="27" rotate={2} />
+
                                     </>
                                 }
                             </button>
-                            <label htmlFor="fileInput" className="bg-btnBgEx px-2 py-3 shadow-lg rounded-xl font-medium cursor-pointer active:scale-90 duration-200 ms-3">
-                                <span className='tracking-wider'>
+                            {/* <label htmlFor="fileInput"> */}
+                            <button
+                                onClick={exportFileExel}
+                                // htmlFor="fileInput"
+                                disabled={loading} className='addBtn bg-btnBgEx mr-4 font-inika active:scale-90 duration-200'>
+                                {loading ?
+                                    <>
+                                        Экспорт файл
+                                        <Icon icon="eos-icons:bubble-loading" className='inline-block ml-2 text-red-700' width="24" />
+                                    </> :
+                                    <>
+                                        Экспорт файл
+                                        <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" />
+                                    </>
+                                }
+                            </button>
+                            {/* </label> */}
+                            <label htmlFor="fileInput" className="bg-btnBgEx px-2 py-3 shadow-lg rounded-xl font-medium cursor-pointer active:scale-90 duration-200">
+                                <span className='tracking-wider text-white'>
                                     {fileName !== "" ? fileName : "Загрузите файл"}
                                 </span>
                             </label>
@@ -227,7 +234,7 @@ const Home = () => {
                                             <td className="px-5 py-3">
                                                 <img
                                                     className='w-14 h-14 rounded-full object-cover'
-                                                    src={item.attachmentId === null
+                                                    src={item.attachmentId == null
                                                         ? img
                                                         : getFile + item.attachmentId
                                                     }
