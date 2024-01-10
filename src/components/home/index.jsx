@@ -6,12 +6,15 @@ import axios from 'axios';
 import { Icon } from '@iconify/react';
 import { toast } from 'react-toastify';
 import NavbarDef from '../navbar/navbar';
+import ReactPaginate from 'react-paginate';
+import "./pagenation.css"
 
 const Home = () => {
 
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(false);
     const [fileName, setFileName] = useState("");
+    const [page, setPage] = useState(0);
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -29,8 +32,12 @@ const Home = () => {
 
     // getUser
     const getUser = () => {
-        axios.get(url + "user", config)
-            .then(res => setUser(res.data.body))
+        axios.get(`${url}user?page=0&size=10`, config)
+            .then(res => {
+                setUser(res.data.object);
+                console.log(res.data.object);
+                setPage(res.data.totalPage)
+            })
             .catch(() => console.log("kelmadi!"))
     }
 
@@ -94,28 +101,22 @@ const Home = () => {
         addFile.append("file", byId("fileInput").files[0])
         axios.post(url + "user/importExcel", addFile, config)
             .then(() => {
-                exBtnInline();
                 toast.success("Faylingiz muvaffaqiyatli junatildi✔")
             })
             .catch(err => {
-                exBtnInline();
                 toast.error("Xatolik yuz berdi❌")
                 console.log(err);
             })
     }
 
-    const exBtnFunc = () => {
-        byId("exBtn").style.display = "none";
-        byId("exBtnTwo").style.display = "inline";
+    const handelPageClick = (event) => {
+        const pageNumber = event.selected;
+        console.log("page number ", pageNumber);
+        axios.get(url + "user?page=" + pageNumber + "&size=10", config).then(res => {
+            setUser(res.data.object)
+        });
     }
 
-    const exBtnInline = () => {
-        byId("exBtn").style.display = "inline";
-        byId("exBtnTwo").style.display = "none";
-        setFileName("");
-    }
-
-    console.log(user);
     return (
         <>
             <NavbarDef />
@@ -149,24 +150,18 @@ const Home = () => {
                                 }
                             </button>
                             <button
-                                onClick={exBtnFunc}
-                                id='exBtn'
-                                className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
-                                <label htmlFor="fileInput" className="cursor-pointer active:scale-90 duration-200">
-                                    <span className='tracking-wider'>Загрузите файл</span>
-                                    <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" rotate={2} />
-                                </label>
-                                <input id="fileInput" type="file" className="hidden" onChange={handleFileChange} />
-                            </button>
-                            <button
                                 onClick={exportFileExel}
-                                style={{ display: "none" }}
                                 id='exBtnTwo'
                                 className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
-                                <span className='tracking-wider'>Экспорт</span>
+                                <span className='tracking-wider'>Экспортировать файл</span>
                                 <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" rotate={2} />
                             </button>
-                            <span className='tracking-wider'>{fileName}</span>
+                            <label htmlFor="fileInput" className="bg-btnBgEx px-2 py-3 shadow-lg rounded-xl font-medium cursor-pointer active:scale-90 duration-200 ms-3">
+                                <span className='tracking-wider'>
+                                    {fileName !== "" ? fileName : "Загрузите файл"}
+                                </span>
+                            </label>
+                            <input id="fileInput" type="file" className="hidden" onChange={handleFileChange} />
                         </div>
                         <div>
                             <label
@@ -255,41 +250,21 @@ const Home = () => {
                                 }
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation example">
-                            <ul class="flex items-center -space-x-px h-10 text-base">
-                                <li>
-                                    <a href="#" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Previous</span>
-                                        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4" />
-                                        </svg>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                                </li>
-                                <li>
-                                    <a href="#" aria-current="page" class="z-10 flex items-center justify-center px-4 h-10 leading-tight text-blue-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                                        <span class="sr-only">Next</span>
-                                        <svg class="w-3 h-3 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                                        </svg>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                    </div>
+
+
+                    <div className='mb-10 mt-5 inline-block'>
+                        <ReactPaginate className="navigation"
+                            breakLabel="..."
+                            nextLabel=">"
+                            onPageChange={handelPageClick}
+                            pageRangeDisplayed={5}
+                            pageCount={page}
+                            previousLabel="<"
+                            renderOnZeroPageCount={null}
+                            nextClassName='nextBtn'
+                            previousClassName='prevBtn'
+                        />
                     </div>
                 </div>
             </div>
