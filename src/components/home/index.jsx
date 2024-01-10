@@ -13,6 +13,7 @@ const Home = () => {
 
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [loadingEx, setLoadingEx] = useState(false);
     const [fileName, setFileName] = useState("");
     const [page, setPage] = useState(0);
 
@@ -76,7 +77,7 @@ const Home = () => {
 
     const importFile = () => {
         setLoading(true);
-        axios.get(url + "user/exportExcel", { responseType: 'blob' }, config)
+        axios.get(url + "user/exportExcel", config, { responseType: 'blob' })
             .then(res => {
                 const blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
                 const url = window.URL.createObjectURL(blob);
@@ -97,21 +98,24 @@ const Home = () => {
     }
 
     const exportFileExel = () => {
+        setLoadingEx(true)
         let addFile = new FormData()
         addFile.append("file", byId("fileInput").files[0])
         axios.post(url + "user/importExcel", addFile, config)
             .then(() => {
                 toast.success("Faylingiz muvaffaqiyatli junatildi✔")
+                setLoadingEx(false)
             })
             .catch(err => {
+                setLoadingEx(false)
                 toast.error("Xatolik yuz berdi❌")
-                console.log(err);
+                // console.log(err);
             })
     }
 
     const handelPageClick = (event) => {
         const pageNumber = event.selected;
-        console.log("page number ", pageNumber);
+        // console.log("page number ", pageNumber);
         axios.get(url + "user?page=" + pageNumber + "&size=10", config).then(res => {
             setUser(res.data.object)
         });
@@ -152,9 +156,18 @@ const Home = () => {
                             <button
                                 onClick={exportFileExel}
                                 id='exBtnTwo'
-                                className='addBtn bg-btnBgEx font-inika active:scale-90 duration-200'>
-                                <span className='tracking-wider'>Экспортировать файл</span>
-                                <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" rotate={2} />
+                                className={`addBtn bg-btnBgEx font-inika active:scale-90 duration-200
+                                ${loadingEx ? "cursor-not-allowed" : ""}`} disabled={loadingEx}>
+                                {loadingEx ?
+                                    <>
+                                        Экспортировать файл
+                                        <Icon icon="eos-icons:bubble-loading" className='inline-block ml-2' width="24" />
+                                    </> :
+                                    <>
+                                        <span className='tracking-wider'>Экспортировать файл</span>
+                                        <Icon icon="material-symbols:downloading" className='inline-block ml-2' width="27" rotate={2} />
+                                    </>
+                                }
                             </button>
                             <label htmlFor="fileInput" className="bg-btnBgEx px-2 py-3 shadow-lg rounded-xl font-medium cursor-pointer active:scale-90 duration-200 ms-3">
                                 <span className='tracking-wider'>
@@ -163,6 +176,8 @@ const Home = () => {
                             </label>
                             <input id="fileInput" type="file" className="hidden" onChange={handleFileChange} />
                         </div>
+
+                        {/* search */}
                         <div>
                             <label
                                 for="searchIn"

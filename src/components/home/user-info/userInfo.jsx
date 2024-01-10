@@ -27,7 +27,7 @@ const UserInfo = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleCreate = () => {
-        console.log(templates.length);
+        // console.log(templates.length);
         setTemplates((prevTemplates) => [...prevTemplates, {}]);
     };
 
