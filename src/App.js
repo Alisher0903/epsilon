@@ -4,6 +4,7 @@ import Home from "./components/home/index";
 import UserList from "./components/user-list/userList";
 import UserInfo from "./components/home/user-info/userInfo";
 import Login from "./components/login/Login";
+import UserListD from "./components/user-list delet/userList";
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route path="/user info" element={<UserList />} />
+        <Route path="/delete user info" element={<UserListD />} />
         <Route path="/user/add" element={<UserInfo />} />
       </Routes>
     </>

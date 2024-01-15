@@ -5,8 +5,9 @@ import {byIdVal, config, getFile, setConfig, url} from "../api";
 import img from "../assets/user.png";
 import NavbarDef from "../navbar/navbar";
 import {toast} from "react-toastify";
+import { Link } from "react-router-dom";
 
-function UserList() {
+function UserListD() {
     const [user, setUser] = useState([]);
     const [editModal, setEditModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
@@ -19,70 +20,41 @@ function UserList() {
     const openEditModal = () => setEditModal(!editModal);
     const openDeleteModal = () => setDeleteModal(!deleteModal);
 
+    const resset = () => {
+        document.getElementById("reeset").click()
+    }
+
     // getUser
     const getUser = () => {
         let userInfoID = sessionStorage.getItem("userInID");
         axios.get(url + "user/" + userInfoID, config)
             .then(res => setUser(res.data.body))
             .catch(() => console.log("kelmadi!"))
+    }  
+    const historyResent = () =>{
+        let userId = sessionStorage.getItem("userInID");
+        axios.post(url +"user/reset/user?userId=" + userId ,config)
+        .then(() => {
+            
+            openEditModal()
+            resset()
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        
+
     }
 
-    function editUser() {
-        let addData = {
-            attachmentId: 0,
-            phoneNumber: byIdVal("phoneNumber"),
-            lastName: byIdVal("lastName"),
-            firstName: byIdVal("firstName"),
-            middleName: byIdVal("middleName"),
-            gender: byIdVal("gender"),
-            nationality: byIdVal("nationality"),
-            year: byIdVal("year"),
-            month: byIdVal("month"),
-            day: byIdVal("day"),
-            placeOfBirth: byIdVal("placeOfBirth"),
-            addressCity: byIdVal("addressCity"),
-            region: byIdVal("region"),
-            district: byIdVal("district"),
-            village: byIdVal("village"),
-            street: byIdVal("street"),
-            mcg: byIdVal("mcg"),
-            ccg: byIdVal("ccg"),
-            home: byIdVal("home"),
-            flat: byIdVal("flat"),
-            education: byIdVal("education"),
-            school: byIdVal("school"),
-            speciality: byIdVal("speciality"),
-            startWorkingDay: byIdVal("startWorkingDay"),
-            startWorkingMonth: byIdVal("startWorkingMonth"),
-            startWorkingYear: byIdVal("startWorkingYear"),
-            dateStartWork: byIdVal("dateStartWork"),
-            maritalStatus: byIdVal("maritalStatus"),
-            passportSyria: byIdVal("passportSyria"),
-            passportNumber: byIdVal("passportNumber"),
-            relationshipDtos: []
-        }
+   
 
-        axios.put(`${url}user/${user.userId}`, addData, config)
-            .then(() => {
-                toast.success('Пользователь успешно изменен');
-                openEditModal();
-            })
-            .catch(err => console.log(err));
-    }
-
-    function deleteUser() {
-        axios.delete(`${url}user/${user.userId}`, config)
-            .then(() => {
-                toast.success('Пользователь успешно удален');
-                openDeleteModal();
-                window.open('/home', '_parent');
-            }).catch(() => toast.error('не удалось запустить этого пользователя'));
-    }
+  
 
     return (
         <>
             <NavbarDef/>
             <div className=" bg-slate-300 pt-4">
+                <Link to='home'></Link>
                 <div className=" w-100 flex justify-center">
                     <div className="items-center">
                         <div className=" flex justify-center ">
@@ -95,11 +67,9 @@ function UserList() {
                         </div>
                         <div className='flex justify-center mt-3'>
                             <button type="button" onClick={openEditModal}
-                                    className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-7 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Таҳрирлаш
+                                    className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-7 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Ортга қайтариш
                             </button>
-                            <button type="button" onClick={openDeleteModal}
-                                    className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Ўчириш
-                            </button>
+                            
                         </div>
                         <div className="text-center">
                             <h1 className="text-3xl font-bold tracking-wider mt-4">
@@ -240,74 +210,26 @@ function UserList() {
                 <TableUSer/>
             </div>
 
-            {editModal && <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
-                <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+            {editModal && <div className="flex justify-center z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div className="fixed  inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+                <div className="fixed flex flex-center justify-center inset-0 z-10 overflow-y-auto">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <div
                             className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-6xl">
                             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                                <h1 className='text-center font-bold mb-3 '>Edit User</h1>
+                                <h1 className='text-center font-bold mb-3 '></h1>
                                 <div className='flex'>
-                                    <div className='w-5/6 flex items-center flex-col gap-y-3'>
-                                        <input type="file" id='file' placeholder='cdc'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='phoneNumber' defaultValue={user.phoneNumber}
-                                               placeholder='Номер телефона'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='firstName' defaultValue={user.firstName} placeholder='Имя'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='lastName' defaultValue={user.lastName} placeholder='Фамилия'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='middleName' defaultValue={user.middleName} placeholder='Отечество'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='year' defaultValue={user.year} placeholder='год рождения'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='month' defaultValue={user.month} placeholder='месяц рождения'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='day' defaultValue={user.day} placeholder='день рождения'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='placeOfBirth' defaultValue={user.placeOfBirth}
-                                               placeholder='Место рождения'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='addressCity' defaultValue={user.addressCity} placeholder='Адрес: г.'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                    </div>
-                                    <div className='w-5/6 flex items-center flex-col gap-y-3'>
-                                        <input id='region' defaultValue={user.region} placeholder='Область'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='district' defaultValue={user.district} placeholder='Район'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input type="text" defaultValue={user.text} placeholder='csdc' id='file'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='village' defaultValue={user.village} placeholder='Область'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='mcg' defaultValue={user.mcg} placeholder='МСГ'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='ccg' defaultValue={user.ccg} placeholder='ССГ'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='home' defaultValue={user.home} placeholder='Дом'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='flat' defaultValue={user.flat} placeholder='Квар-тира'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <input id='street' defaultValue={user.street} placeholder='Улица'
-                                               className='block w-10/12 rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'/>
-                                        <select
-                                            id="gender"
-                                            className='border text-sm rounded-lg block w-10/12 p-2.5'>
-                                            <option selected disabled>Пол...</option>
-                                            <option value="М">Мужской</option>
-                                            <option value="Ж">Женский</option>
-                                        </select>
-                                    </div>
+                                Бу фойдаланувчини орқага қайтармоқчимисиз?
                                 </div>
                             </div>
                             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                <button type="button" onClick={editUser}
-                                        className="inline-flex w-full justify-center rounded-md bg-yellow-600 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 sm:ml-3 sm:w-auto">Edit
+                                <button type="button" onClick={historyResent}
+                                    
+                                        className="inline-flex w-full justify-center rounded-md bg-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-500 sm:ml-3 sm:w-auto">
+                                        Да
                                 </button>
                                 <button type="button" onClick={openEditModal}
-                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel
+                                        className="mt-3 inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2  text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-red-600 sm:mt-0 sm:w-auto">Нет
                                 </button>
                             </div>
                         </div>
@@ -343,14 +265,7 @@ function UserList() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                                    <button type="button" onClick={deleteUser}
-                                            className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">Ўчириш
-                                    </button>
-                                    <button type="button" onClick={openDeleteModal}
-                                            className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Бекор қилиш
-                                    </button>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -359,4 +274,4 @@ function UserList() {
     );
 }
 
-export default UserList;
+export default UserListD;

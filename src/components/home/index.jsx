@@ -14,10 +14,19 @@ const Home = () => {
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(false);
     const [loadingEx, setLoadingEx] = useState(false);
+    const [arxiv, setUserArxiv] = useState (false);
     const [inputHidden, setInputHidden] = useState(false);
     const [fileName, setFileName] = useState("");
     const [page, setPage] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
+    const [chooseArvix, setChooseArxiv] = useState(false);
+    const [hidden, setHidden] = useState (true);
+    const [inline, setInline] = useState(true);
+
+    const Exchange = () =>{
+       setHidden(!hidden)
+       setInline(!inline)
+    }
 
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
@@ -25,6 +34,7 @@ const Home = () => {
         if (selectedFile) setFileName(selectedFile.name);
         else setFileName("");
     };
+    
 
     useEffect(() => {
         setConfig();
@@ -44,6 +54,9 @@ const Home = () => {
     // goUserAdd
     const goUserAdd = () => byId("userAdd").click();
     const goUserInfo = () => byId("userInfo").click();
+    const goUserInfo2 = () => byId("userInfo2").click();
+   
+   
 
     // search
     const searchUser = () => {
@@ -92,6 +105,18 @@ const Home = () => {
         });
     }
 
+    const historyUser = () =>{
+        setLoading(true);
+        axios.get(url +"user/delete/user", config)
+        .then(res => {
+            
+            setPage(res.data.totalPage)
+            setUser(res.data.object);
+        })
+        
+
+    }
+
     const exportFileExel = () => {
         setLoading(true);
         let addFile = new FormData()
@@ -117,12 +142,14 @@ const Home = () => {
         });
     }
 
+   
     return (
         <>
             <NavbarDef/>
             <div className='bg-gradient-to-t from-green-200 min-h-screen to-teal-500 w-full flex justify-center'>
                 <Link to="/user/add" id='userAdd'></Link>
                 <Link to="/user info" id='userInfo'></Link>
+                <Link to="/delete user info" id='userInfo2'></Link>
                 <div className='container'>
                     <div className='flex justify-center flex-col items-center mt-5 w-full font-inika'>
                         <h3 className='text-xxl font-bold text-headColor'>Компания Эпсилон Девелопмент</h3>
@@ -140,6 +167,7 @@ const Home = () => {
                                     className='addBtn mr-4 bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
                                 Добавить сотрудника
                             </button>
+                            
                             <button
                                 onClick={importFile}
                                 className={`addBtn bg-btnBgIm font-inika active:scale-90 duration-200 mr-4
@@ -158,6 +186,7 @@ const Home = () => {
                                     </>
                                 }
                             </button>
+                            
                             <span style={{display: `${inputHidden ? 'inline' : 'none'}`}}>
                                     <button
                                         onClick={exportFileExel}
@@ -187,6 +216,15 @@ const Home = () => {
                                     </label>
                                     <input id="fileInput" type="file" className="hidden" onChange={handleFileChange}/>
                                 </span>
+                            <span>
+                            <button onClick={() => {
+                                historyUser()
+                                Exchange()
+                            }}
+                                    className='addBtn mr-4 ml-4 bg-gradient-to-t from-cyan-600 via-blue-500 to-cyan-600 font-inika active:scale-90 duration-200'>
+                                Архив
+                            </button>
+                            </span>
                         </div>
 
                         {/* search */}
@@ -254,11 +292,21 @@ const Home = () => {
                                         <td className="px-5 py-3">{item.year}</td>
                                         <td className="px-5 py-3">
                                             <button
+                                                id='ar2'
                                                 onClick={() => {
                                                     goUserInfo();
                                                     sessionStorage.setItem("userInID", item.userId)
                                                 }}
-                                                className='addBtn bg-infoBtnBg text-black font-inika active:scale-90 duration-200'>Дополнительный
+                                                className={`addBtn ${inline ? '' : 'hidden'} bg-infoBtnBg text-black font-inika active:scale-90 duration-200`}>Дополнительный
+                                            </button>
+                                            <button
+                                                id='ar1'
+                                                onClick={() => {
+                                                    
+                                                    goUserInfo2();
+                                                    sessionStorage.setItem("userInID", item.userId)
+                                                }}
+                                                className={`addBtn ${hidden ? 'hidden' : ''} bg-infoBtnBg text-black font-inika active:scale-90 duration-200`}>Восстановление
                                             </button>
                                         </td>
                                     </tr>
